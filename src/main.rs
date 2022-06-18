@@ -3,7 +3,7 @@ pub fn capitalize_first(input: &str) -> String {
     // println!("{:?}", c);
     match c.next() {
         None => String::new(),
-        Some(first) => first.to_uppercase().to_string(),
+        Some(first) => first.to_uppercase().collect::<String>() + c.as_str(),
     }
 }
 
