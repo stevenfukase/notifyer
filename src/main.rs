@@ -21,22 +21,14 @@ enum Progress {
     Complete,
 }
 
-fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
-    let mut count = 0;
-    for map in collection {
-        for val in map.values() {
-            if val == &value {
-                count += 1;
-            }
-        }
-    }
-    count
-}
-
 fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
     // collection is a slice of hashmaps.
     // collection = [{ "variables1": Complete, "from_str": None, ... },
     //     { "variables2": Complete, ... }, ... ]
+    collection
+        .iter()
+        .flat_map(|hashmap| hashmap.iter().filter(|(_key, &val)| val == value))
+        .count()
 }
 
 fn get_vec_map() -> Vec<HashMap<String, Progress>> {
