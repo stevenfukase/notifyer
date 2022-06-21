@@ -15,8 +15,8 @@ fn main() {
             status_shared.jobs_completed += 1;
         }
     });
-    while status.jobs_completed < 10 {
-        println!("waiting... ");
-        thread::sleep(Duration::from_millis(500));
-    }
+    // while status.jobs_completed < 10 {
+    //     println!("waiting... ");
+    //     thread::sleep(Duration::from_millis(500));
+    // }
 }
