@@ -39,8 +39,8 @@ impl From<&str> for Person {
     fn from(s: &str) -> Person {
         let strs = s.split(',').collect::<Vec<&str>>();
         Person {
-            name: strs.0,
-            age: strs.1,
+            name: strs[0].to_string(),
+            age: strs[1].parse::<usize>().unwrap(),
         }
     }
 }
