@@ -31,11 +31,15 @@ impl App {
 
     fn add_block(&mut self, block: Block) {
         let last_block = self.blocks.last().expect("Has at least 1 block");
-        if self.is_block_valid {
+        if self.is_block_valid(last_block, block) {
             self.blocks.push(block);
         } else {
             eprintln!("Block invalid");
         }
+    }
+
+    fn is_block_valid(&self, last_block: Block, new_block: Block) {
+        
     }
 }
 
