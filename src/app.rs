@@ -60,6 +60,11 @@ impl eframe::App for TemplateApp {
                         frame.quit();
                     }
                 });
+                ui.menu_button("Edit", |ui| {
+                    // if ui.button("Edit").clicked() {
+                        
+                    // }
+                });
             });
         });
 
