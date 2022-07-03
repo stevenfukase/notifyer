@@ -25,7 +25,7 @@ impl TemplateApp {
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         // This is also where you can customized the look at feel of egui using
         // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
-
+        cc.egui_ctx.set_visuals(egui::style::Visuals::dark());
         // Load previous app state (if any).
         // Note that you must enable the `persistence` feature for this to work.
         if let Some(storage) = cc.storage {
@@ -47,7 +47,6 @@ impl eframe::App for TemplateApp {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         let Self { label, value } = self;
 
-        ctx.set_visuals(egui::style::Visuals::dark());
         // Examples of how to create different panels and windows.
         // Pick whichever suits you.
         // Tip: a good default choice is to just keep the `CentralPanel`.
