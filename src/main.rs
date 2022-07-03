@@ -1,12 +1,16 @@
-use rust_gpiozero::*;
+#![warn(clippy::all, rust_2018_idioms)]
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
+// When compiling natively:
+#[cfg(not(target_arch = "wasm32"))]
 fn main() {
-    // Create a new LED attached to Pin 17
-    let mut led = LED::new(17);
+    // Log to stdout (if you run with `RUST_LOG=debug`).
+    tracing_subscriber::fmt::init();
 
-    // on_time = 2 secs, off_time=3 secs
-    led.blink(2.0, 3.0);
-
-    // prevent program from exiting immediately
-    led.wait();
+    let native_options = eframe::NativeOptions::default();
+    eframe::run_native(
+        "eframe template",
+        native_options,
+        Box::new(|cc| Box::new(playground::TemplateApp::new(cc))),
+    );
 }
