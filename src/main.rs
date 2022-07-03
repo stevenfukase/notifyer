@@ -28,6 +28,15 @@ impl App {
         };
         self.blocks.push(genesis_block);
     }
+
+    fn add_block(&mut self, block: Block) {
+        let last_block = self.blocks.last().expect("Has at least 1 block");
+        if self.is_block_valid {
+            self.blocks.push(block);
+        } else {
+            eprintln!("Block invalid");
+        }
+    }
 }
 
 fn main() {}
