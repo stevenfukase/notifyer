@@ -1,4 +1,4 @@
-// use log::{error, warn};
+use log::{error, warn};
 
 pub struct App {
     pub blocks: Vec<Block>,
@@ -47,17 +47,17 @@ impl App {
             // warn!("Wrong prev_hash");
             false
         }
-        // if !hash_to_binary_representation(&hex::decode(&block.hash).expect("Can decode from hex"))
-        //     .starts_with(DIFFICULTY_PREFIX)
-        // {
-        //     // warn!("block with id: {} has invalid difficulty", block.id);
-        //     return false;
-        // }
+        if !hash_to_binary_representation(&hex::decode(&block.hash).expect("Can decode from hex"))
+            .starts_with(DIFFICULTY_PREFIX)
+        {
+            warn!("block with id: {} has invalid difficulty", block.id);
+            return false;
+        }
         if block.id != previous_block.id + 1 {
-            // warn!(
-            //     "block with id: {} is not the next block after the latest: {}",
-            //     block.id, previous_block.id
-            // );
+            warn!(
+                "block with id: {} is not the next block after the latest: {}",
+                block.id, previous_block.id
+            );
             return false;
         }
         if hex::encode(calculate_hash(
@@ -68,7 +68,7 @@ impl App {
             block.nonce,
         )) != block.hash
         {
-            // warn!("block with id: {} has invalid hash", block.id);
+            warn!("block with id: {} has invalid hash", block.id);
             return false;
         }
         true
