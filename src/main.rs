@@ -1,4 +1,6 @@
+use chrono::Utc;
 use log::{error, warn};
+use serde::{Deserialize, Serialize};
 
 pub struct App {
     pub blocks: Vec<Block>,
@@ -44,7 +46,7 @@ impl App {
 
     fn is_block_valid(&self, last_block: Block, new_block: Block) -> bool {
         if last_block.hash != new_block.prev_hash {
-            // warn!("Wrong prev_hash");
+            warn!("Wrong prev_hash");
             false
         }
         if !hash_to_binary_representation(&hex::decode(&block.hash).expect("Can decode from hex"))
@@ -75,4 +77,6 @@ impl App {
     }
 }
 
-fn main() {}
+fn main() {
+    App::new();
+}
