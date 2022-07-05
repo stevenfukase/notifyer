@@ -1,0 +1,11 @@
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/prost-e50afb18d66d9a40.rmeta: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/error.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/message.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/types.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/encoding.rs
+
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/libprost-e50afb18d66d9a40.rlib: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/error.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/message.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/types.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/encoding.rs
+
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/prost-e50afb18d66d9a40.d: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/error.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/message.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/types.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/encoding.rs
+
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/lib.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/error.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/message.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/types.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/prost-0.10.4/src/encoding.rs:

@@ -1,0 +1,15 @@
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/soketto-853631977144f619.rmeta: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/base.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/connection.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/data.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/extension.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/extension/deflate.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake/client.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake/server.rs
+
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/soketto-853631977144f619.d: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/base.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/connection.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/data.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/extension.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/extension/deflate.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake/client.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake/server.rs
+
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/lib.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/base.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/connection.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/data.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/extension.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/extension/deflate.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake/client.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/soketto-0.7.1/src/handshake/server.rs:
+
+# env-dep:CARGO_PKG_VERSION=0.7.1

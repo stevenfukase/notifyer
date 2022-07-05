@@ -1,0 +1,10 @@
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/eframe-a63aca97c5d92428.rmeta: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/epi.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/mod.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/epi_integration.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/run.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/file_storage.rs
+
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/eframe-a63aca97c5d92428.d: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/epi.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/mod.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/epi_integration.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/run.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/file_storage.rs
+
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/lib.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/epi.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/mod.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/epi_integration.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/run.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/eframe-0.18.0/src/native/file_storage.rs:
