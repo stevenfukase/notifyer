@@ -1,7 +1,0 @@
-/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/termcolor-9280c9119a339014.rmeta: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/termcolor-1.1.3/src/lib.rs
-
-/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/libtermcolor-9280c9119a339014.rlib: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/termcolor-1.1.3/src/lib.rs
-
-/Users/fantaisie-impromptu/Documents/Projects/playground/target/debug/deps/termcolor-9280c9119a339014.d: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/termcolor-1.1.3/src/lib.rs
-
-/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/termcolor-1.1.3/src/lib.rs:
