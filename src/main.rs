@@ -16,9 +16,9 @@ pub struct Block {
     pub nonce: u64,
 }
 
-impl App {
-    const DIFFICULTY_PREFIX: &str = "00";
+const DIFFICULTY_PREFIX: &str = "00";
 
+impl App {
     fn new() -> Self {
         Self { blocks: vec![] }
     }
@@ -75,6 +75,13 @@ impl App {
         }
         true
     }
+}
+fn calculate_hash() {
+    calculate_hash;
+}
+
+fn hash_to_binary_representation() {
+    todo!()
 }
 
 fn main() {
