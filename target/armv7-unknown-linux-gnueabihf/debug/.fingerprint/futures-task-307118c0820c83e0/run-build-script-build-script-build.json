@@ -1,1 +1,0 @@
-{"rustc":3153901651144956703,"features":"","target":0,"profile":0,"path":0,"deps":[[11055378996109392879,"build_script_build",false,2316626728426858560]],"local":[{"RerunIfChanged":{"output":"armv7-unknown-linux-gnueabihf/debug/build/futures-task-307118c0820c83e0/output","paths":["no_atomic_cas.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}
