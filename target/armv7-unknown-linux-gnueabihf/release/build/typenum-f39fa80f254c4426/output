@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/fantaisie-impromptu/Documents/Projects/playground/target/armv7-unknown-linux-gnueabihf/release/build/typenum-f39fa80f254c4426/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/fantaisie-impromptu/Documents/Projects/playground/target/armv7-unknown-linux-gnueabihf/release/build/typenum-f39fa80f254c4426/out/op.rs
