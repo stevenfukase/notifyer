@@ -1,12 +1,11 @@
-use std::{thread, time};
+use std::net::TcpListener;
 
 fn main() {
-    let times = 1_000_000_000;
-    let mut count = 0;
+    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
 
-    while count < times {
-        println!("{}", count);
-        count += 1;
-        thread::sleep(time::Duration::from_secs(1));
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        println!("Connection established!");
     }
 }
