@@ -1,11 +1,18 @@
-use std::net::TcpListener;
+use std::{
+    io::{stdout, Write},
+    thread::sleep,
+    time::{Duration, SystemTime},
+};
+
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let mut stdout = stdout();
 
-    for stream in listener.incoming() {
-        let stream = stream.unwrap();
-
-        println!("Connection established!");
+    loop {
+        let now = SystemTime::now();
+        print!("\rCurrent time: {:?}", now);
+        
+        stdout.flush().unwrap();
+        sleep(Duration::from_secs(1));
     }
 }
