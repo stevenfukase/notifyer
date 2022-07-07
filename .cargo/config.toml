@@ -1,4 +1,5 @@
 [build]
 
-[target.arm-unknown-linux-gnueabihf]
-linker = "/rpi_tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin"
+[target.armv7-unknown-linux-musleabihf]
+linker = "arm-linux-gnueabihf-ld"
+ar = "arm-linux-gnueabihf-ar"
