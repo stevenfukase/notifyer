@@ -1,4 +1,4 @@
 [build]
 
-# [target.armv7-unknown-linux-gnueabihf]
-# linker = "arm-none-linux-gnueabihf-gcc"
+[target.arm-unknown-linux-gnueabihf]
+linker = "/rpi_tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin"
