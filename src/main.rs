@@ -1,13 +1,14 @@
-use std::{thread::sleep, time::Duration};
+use actix_web::{get, web, App, HttpServer, Responder};
 
-fn main() {
-    let mut prev_num: u128 = 1;
-    let mut num: u128 = 1;
-    loop {
-        let result = prev_num + num;
-        println!("{:?}", result);
-        prev_num = num;
-        num = result;
-        sleep(Duration::from_secs(1));
-    }
+#[get("/hello/{name}")]
+async fn greet_controller(name: web::Path<String>) -> impl Responder {
+    format!("Hello {name}!")
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| App::new().service(greet_controller))
+        .bind(("127.0.0.1", 8080))?
+        .run()
+        .await
 }
