@@ -7,6 +7,7 @@ async fn greet_controller(name: web::Path<String>) -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    println!("Starting server...");
     HttpServer::new(|| App::new().service(greet_controller))
         .bind(("127.0.0.1", 8080))?
         .run()
