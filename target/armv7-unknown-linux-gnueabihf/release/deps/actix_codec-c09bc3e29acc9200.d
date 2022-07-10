@@ -1,0 +1,10 @@
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/armv7-unknown-linux-gnueabihf/release/deps/actix_codec-c09bc3e29acc9200.rmeta: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/bcodec.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/framed.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lines.rs
+
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/armv7-unknown-linux-gnueabihf/release/deps/libactix_codec-c09bc3e29acc9200.rlib: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/bcodec.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/framed.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lines.rs
+
+/Users/fantaisie-impromptu/Documents/Projects/playground/target/armv7-unknown-linux-gnueabihf/release/deps/actix_codec-c09bc3e29acc9200.d: /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lib.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/bcodec.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/framed.rs /Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lines.rs
+
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lib.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/bcodec.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/framed.rs:
+/Users/fantaisie-impromptu/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-codec-0.5.0/src/lines.rs:
