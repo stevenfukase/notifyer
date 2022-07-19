@@ -5,3 +5,7 @@
 
 [target.armv7-unknown-linux-gnueabihf]
 linker = "armv7-unknown-linux-gnueabihf-cc"
+
+[env]
+SLACK_CHANNEL_ID = "C03QJK9S7H6"
+SLACK_BOT_USER_OAUTH_TOKEN = "xoxb-686746877040-3813308443252-vSPqqCvxW7FChWSASe1ocIWR"
