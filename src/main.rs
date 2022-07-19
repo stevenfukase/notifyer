@@ -6,4 +6,5 @@ use slack_notify::slack_notify;
 async fn main() {
     let message = "Hello from rustberry!";
     slack_notify(message).await;
+    println!("Executed");
 }
