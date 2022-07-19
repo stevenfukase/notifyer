@@ -1,0 +1,11 @@
+[build]
+
+# [target.armv7-unknown-linux-gnueabihf]
+# linker = "arm-linux-gnueabihf-ld"
+
+[target.armv7-unknown-linux-gnueabihf]
+linker = "armv7-unknown-linux-gnueabihf-cc"
+
+[env]
+SLACK_CHANNEL_ID = ""
+SLACK_BEARER_TOKEN = ""
