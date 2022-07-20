@@ -1,0 +1,18 @@
+query UserContributions($login: String!) {
+  user(login: $login) {
+    contributionsCollection {
+      endedAt
+      contributionCalendar {
+        colors
+        weeks {
+          contributionDays {
+            contributionCount
+            date
+            weekday
+            contributionLevel
+          }
+        }
+      }
+    }
+  }
+}
