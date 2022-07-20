@@ -1,7 +1,6 @@
-pub mod constants;
-pub mod slack_notify;
-use slack_notify::slack_notify;
 use std::{thread, time};
+use utils::slack_notify::slack_notify;
+mod utils;
 
 #[tokio::main]
 async fn main() {
