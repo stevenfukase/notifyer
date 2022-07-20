@@ -1,5 +1,3 @@
-const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
-
 use graphql_client::GraphQLQuery;
 
 type Date = String;
@@ -12,5 +10,5 @@ type DateTime = String;
     response_derives = "Serialize,PartialEq"
 )]
 pub struct UserContributions;
-
-pub fn get_today_activity() {}
+const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
+pub async fn get_today_activity() {}
