@@ -7,7 +7,7 @@ async fn main() {
     let message = "Hello from rustberry!";
     let delay = time::Duration::from_secs(3);
 
-    let github_stat = github::get_today_activity().await;
+    let github_stat = github::github::get_activity().await;
 
     loop {
         let result = slack::notify(message).await;
