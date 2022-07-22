@@ -1,4 +1,4 @@
-use graphql_client::GraphQLQuery;
+use graphql_client::{GraphQLQuery, re, reqwest::post_graphql};
 use reqwest::Client;
 
 type Date = String;
@@ -38,14 +38,16 @@ pub async fn get_activity() -> Result<user_contributions::ResponseData, reqwest:
 
     // graphql_client::reqwest::post_graphql will cause error
     // when compiling for armv7-unknown-linux-gnueabihf
+    // let response = client
+    //     .post(GITHUB_ENDPOINT)
+    //     .json(&request_body)
+    //     .send()
+    //     .await?;
 
-    let response = client
-        .post(GITHUB_ENDPOINT)
-        .json(&request_body)
-        .send()
-        .await?;
-    println!("{:?}", response);
+    // println!("{:?}", response);
     
-    let parsed_response = response.json().await?;
-    Ok(parsed_response)
+    // let parsed_response = response.json().await?;
+    // Ok(parsed_response)
+    let response = post_graphql(&client, GITHUB_ENDPOINT, variables).await.unwrap();
+    Ok(response)
 }
