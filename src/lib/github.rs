@@ -1,4 +1,4 @@
-use graphql_client::{GraphQLQuery, re, reqwest::post_graphql};
+use graphql_client::{reqwest::post_graphql, GraphQLQuery};
 use reqwest::Client;
 
 type Date = String;
@@ -14,7 +14,8 @@ pub struct UserContributions;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 
-pub async fn get_activity() -> Result<user_contributions::ResponseData, reqwest::Error> {
+pub async fn get_activity(
+) -> Result<graphql_client::Response<user_contributions::ResponseData>, reqwest::Error> {
     let github_username = env!("GITHUB_USERNAME");
     let github_token = env!("GITHUB_ACCESS_TOKEN");
 
@@ -34,10 +35,13 @@ pub async fn get_activity() -> Result<user_contributions::ResponseData, reqwest:
         login: github_username.to_string(),
     };
 
-    let request_body = UserContributions::build_query(variables);
-
     // graphql_client::reqwest::post_graphql will cause error
     // when compiling for armv7-unknown-linux-gnueabihf
+    // let response =
+    //     post_graphql::<UserContributions, _>(&client, GITHUB_ENDPOINT, variables).await?;
+
+    // let request_body = UserContributions::build_query(&variables);
+
     // let response = client
     //     .post(GITHUB_ENDPOINT)
     //     .json(&request_body)
@@ -45,9 +49,9 @@ pub async fn get_activity() -> Result<user_contributions::ResponseData, reqwest:
     //     .await?;
 
     // println!("{:?}", response);
-    
+
     // let parsed_response = response.json().await?;
     // Ok(parsed_response)
-    let response = post_graphql(&client, GITHUB_ENDPOINT, variables).await.unwrap();
+
     Ok(response)
 }

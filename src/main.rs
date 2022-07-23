@@ -9,15 +9,15 @@ async fn main() {
     let github_stat = github::get_activity().await;
     println!("{:?}", github_stat);
 
-    loop {
-        let result = slack::notify(message).await;
+    // loop {
+    //     let result = slack::notify(message).await;
 
-        if result.is_ok() {
-            println!("Executed");
-            break;
-        }
-        println!("Failed to send Slack");
+    //     if result.is_ok() {
+    //         println!("Executed");
+    //         break;
+    //     }
+    //     println!("Failed to send Slack");
 
-        thread::sleep(delay);
-    }
+    //     thread::sleep(delay);
+    // }
 }
