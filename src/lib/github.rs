@@ -1,4 +1,4 @@
-use graphql_client::{reqwest::post_graphql, GraphQLQuery};
+use graphql_client::GraphQLQuery;
 use reqwest::Client;
 
 type Date = String;
@@ -40,18 +40,13 @@ pub async fn get_activity(
     // let response =
     //     post_graphql::<UserContributions, _>(&client, GITHUB_ENDPOINT, variables).await?;
 
-    // let request_body = UserContributions::build_query(&variables);
-
-    // let response = client
-    //     .post(GITHUB_ENDPOINT)
-    //     .json(&request_body)
-    //     .send()
-    //     .await?;
-
-    // println!("{:?}", response);
-
-    // let parsed_response = response.json().await?;
-    // Ok(parsed_response)
+    let response = client
+        .post(GITHUB_ENDPOINT)
+        .json(&UserContributions::build_query(variables))
+        .send()
+        .await?
+        .json()
+        .await?;
 
     Ok(response)
 }
