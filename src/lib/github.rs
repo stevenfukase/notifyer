@@ -37,9 +37,6 @@ pub async fn get_activity(
 
     // graphql_client::reqwest::post_graphql will cause error
     // when compiling for armv7-unknown-linux-gnueabihf
-    // let response =
-    //     post_graphql::<UserContributions, _>(&client, GITHUB_ENDPOINT, variables).await?;
-
     let response = client
         .post(GITHUB_ENDPOINT)
         .json(&UserContributions::build_query(variables))
