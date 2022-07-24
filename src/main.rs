@@ -1,3 +1,4 @@
+use chrono::{DateTime, Local};
 use lib::{github, slack};
 use std::{thread, time};
 mod lib;
@@ -13,20 +14,24 @@ async fn main() {
         .user
         .unwrap()
         .contributions_collection
-        .ended_at;
+        .ended_at
+        .parse::<DateTime<Local>>()
+        .unwrap()
+        .date();
 
-    let message = format!("{:?}", ended_at);
-    println!("{:?}", message);
+    let current_date = Local::now().date();
+    let message = "You haven't commited today.";
 
-    loop {
-        let result = slack::notify(&message).await;
+    if current_date != ended_at {
+        loop {
+            let result = slack::notify(message).await;
+            if result.is_ok() {
+                println!("Executed");
+                break;
+            }
+            println!("Failed to send Slack");
 
-        if result.is_ok() {
-            println!("Executed");
-            break;
+            thread::sleep(delay);
         }
-        println!("Failed to send Slack");
-
-        thread::sleep(delay);
     }
 }

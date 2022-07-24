@@ -1,0 +1,1 @@
+{"rustc":13146120264061568624,"features":"","target":0,"profile":0,"path":0,"deps":[[1494750142361447113,"build_script_build",false,3803271882694200556]],"local":[{"RerunIfChanged":{"output":"armv7-unknown-linux-gnueabihf/release/build/num-integer-a8072f2de0e13808/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}
