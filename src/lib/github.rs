@@ -1,7 +1,6 @@
 use graphql_client::GraphQLQuery;
 use reqwest::Client;
 
-type Date = String;
 type DateTime = String;
 
 #[derive(GraphQLQuery)]

@@ -18,15 +18,15 @@ async fn main() {
     let message = format!("{:?}", ended_at);
     println!("{:?}", message);
 
-    // loop {
-    //     let result = slack::notify(&message).await;
+    loop {
+        let result = slack::notify(&message).await;
 
-    //     if result.is_ok() {
-    //         println!("Executed");
-    //         break;
-    //     }
-    //     println!("Failed to send Slack");
+        if result.is_ok() {
+            println!("Executed");
+            break;
+        }
+        println!("Failed to send Slack");
 
-    //     thread::sleep(delay);
-    // }
+        thread::sleep(delay);
+    }
 }
