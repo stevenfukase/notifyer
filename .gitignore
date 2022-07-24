@@ -1,4 +1,4 @@
-# target/debug/
+target/debug/
 # target/release/
-# target/.rustc_info.json
+target/.rustc_info.json
 .cargo/config.toml
