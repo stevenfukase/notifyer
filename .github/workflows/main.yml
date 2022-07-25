@@ -1,8 +1,8 @@
-name: Cron Job
+name: Cron
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "* * * * *"
 
 jobs:
   cron:
