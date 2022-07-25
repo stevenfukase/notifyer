@@ -9,4 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run rust cron
-        run: ./target/release/playground
+        run: ls
+#         run: ./target/release/playground
