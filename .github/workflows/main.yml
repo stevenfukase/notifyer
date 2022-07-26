@@ -3,6 +3,8 @@ name: Cron
 on:
   schedule:
     - cron: "0 * * * *"
+  push:
+    branches: [ "master" ]
 
 defaults:
   run:
