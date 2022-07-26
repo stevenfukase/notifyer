@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run rust cron
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run
         run: playground
