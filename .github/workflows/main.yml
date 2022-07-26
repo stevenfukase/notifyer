@@ -2,7 +2,7 @@ name: Cron
 
 on:
   schedule:
-    - cron: "24 8 * * *"
+    - cron: "0 * * * *"
 
 jobs:
   cron:
@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Run rust cron
         working-directory: ${{ runner.workspace }}
-        run: target/release/playground
+        run: /target/release/playground
