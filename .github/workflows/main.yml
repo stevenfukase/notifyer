@@ -4,11 +4,14 @@ on:
   schedule:
     - cron: "0 * * * *"
 
+defaults:
+  run:
+    working-directory: ./target/release
+
 jobs:
   cron:
     runs-on: ubuntu-latest
 
     steps:
       - name: Run rust cron
-        working-directory: ${{ runner.workspace }}
-        run: /target/release/playground
+        run: ./playground
