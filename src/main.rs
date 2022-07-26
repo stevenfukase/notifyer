@@ -20,9 +20,22 @@ async fn main() {
         .date();
 
     let current_date = Local::now().date();
-    let message = "You haven't commited today.";
+
 
     if current_date != ended_at {
+        let message = "You haven't committed today.";
+        loop {
+            let result = slack::notify(message).await;
+            if result.is_ok() {
+                println!("Executed");
+                break;
+            }
+            println!("Failed to send Slack");
+
+            thread::sleep(delay);
+        }
+    } else {
+        let message = "You have committed at least once today.";
         loop {
             let result = slack::notify(message).await;
             if result.is_ok() {
