@@ -1,4 +1,4 @@
-name: Cron
+name: Hourly Cron
 
 on:
   schedule:
