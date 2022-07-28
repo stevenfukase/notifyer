@@ -1,11 +1,11 @@
-use lib::{github, slack};
+use lib::{github::{self, UserContributions}, slack};
 use std::{thread, time};
 mod lib;
 
 #[tokio::main]
 async fn main() {
     let delay = time::Duration::from_secs(3);
-    let result = &github::todays_activity_count().await.unwrap();
+    let result = github::todays_activity_count().await.unwrap().json::<user_contributions::Response>().await;
     println!("{:?}", result);
     
 
