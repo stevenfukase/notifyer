@@ -1,7 +1,6 @@
 use chrono::Utc;
 use graphql_client::GraphQLQuery;
 use reqwest::Client;
-use serde_json::json;
 
 type DateTime = String;
 type Date = String;
@@ -16,7 +15,8 @@ pub struct SingleDayContribution;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 
-pub async fn todays_activity_count() -> Result<i64, reqwest::Error> {
+pub async fn todays_activity_count() -> Result<single_day_contribution::ResponseData, reqwest::Error>
+{
     let github_username = env!("GITHUB_USERNAME");
     let github_token = env!("GITHUB_ACCESS_TOKEN");
 
@@ -32,35 +32,24 @@ pub async fn todays_activity_count() -> Result<i64, reqwest::Error> {
         )
         .build()?;
 
-    let variables = single_day_contribution::Variables {
-        login: "stevenfukase".to_owned(),
-        date: "2022-07-27T00:00:00Z".to_owned(),
-    };
     // let variables = single_day_contribution::Variables {
-    //     login: github_username.to_string(),
-    //     date: Utc::now().to_rfc3339(),
+    //     login: "stevenfukase".to_owned(),
+    //     date: "2022-07-27T00:00:00Z".to_owned(),
     // };
+    let variables = single_day_contribution::Variables {
+        login: github_username.to_string(),
+        date: Utc::now().to_rfc3339(),
+    };
 
     // graphql_client::reqwest::post_graphql will cause error
     // when compiling for armv7-unknown-linux-gnueabihf
-    let response = client
+    let res = client
         .post(GITHUB_ENDPOINT)
         .json(&SingleDayContribution::build_query(variables))
         .send()
-        .await?
-        .json::<single_day_contribution::ResponseData>()
-        .await;
+        .await?;
 
-    println!("{:?}", response);
+    println!("{:?}", res);
 
-    Ok(0)
-
-    // Ok(response
-    //     .user
-    //     .unwrap()
-    //     .contributions_collection
-    //     .contribution_calendar
-    //     .weeks[0]
-    //     .contribution_days[0]
-    //     .contribution_count)
+    res.json::<single_day_contribution::ResponseData>().await
 }
