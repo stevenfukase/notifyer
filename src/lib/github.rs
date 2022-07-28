@@ -32,14 +32,12 @@ pub async fn todays_activity_count() -> Result<single_day_contribution::Response
         )
         .build()?;
 
-    // let variables = single_day_contribution::Variables {
-    //     login: "stevenfukase".to_owned(),
-    //     date: "2022-07-27T00:00:00Z".to_owned(),
-    // };
-    let variables = single_day_contribution::Variables {
-        login: github_username.to_string(),
-        date: Utc::now().to_rfc3339(),
-    };
+    let login = github_username.to_string();
+    println!("{:?}", login);
+    let date = "2022-07-28T16:20:15Z".to_string();
+    println!("{:?}", date);
+
+    let variables = single_day_contribution::Variables { login, date };
 
     // graphql_client::reqwest::post_graphql will cause error
     // when compiling for armv7-unknown-linux-gnueabihf
@@ -49,7 +47,7 @@ pub async fn todays_activity_count() -> Result<single_day_contribution::Response
         .send()
         .await?;
 
-    println!("{:?}", res);
+    // println!("{:?}", res);
 
     res.json::<single_day_contribution::ResponseData>().await
 }
