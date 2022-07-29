@@ -1,18 +1,14 @@
-query UserContributions($login: String!) {
+query SingleDayContributions($login: String!, $date: DateTime!) {
   user(login: $login) {
-    contributionsCollection {
-      endedAt
-      # contributionCalendar {
-      #   colors
-      #   weeks {
-      #     contributionDays {
-      #       contributionCount
-      #       date
-      #       weekday
-      #       contributionLevel
-      #     }
-      #   }
-      # }
+    contributionsCollection(from: $date, to: $date) {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            contributionCount
+            date
+          }
+        }
+      }
     }
   }
 }
