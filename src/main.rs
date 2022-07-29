@@ -5,9 +5,9 @@ mod lib;
 #[tokio::main]
 async fn main() {
     let delay = time::Duration::from_secs(3);
-    let activity_count = &github::todays_activity_count().await.unwrap();
+    let contribution_count = &github::todays_contribution_count().await.unwrap_or(0);
 
-    if activity_count == &0 {
+    if contribution_count == &0 {
         let message = "You haven't committed today.";
         loop {
             let result = slack::notify(message).await;
