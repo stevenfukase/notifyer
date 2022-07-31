@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "0 * * * *"
   push:
-    branches: [ "master" ]
+    branches: [ "master", "release" ]
     
 jobs:
   cron:
@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: 'release'
       - name: Build
         run: cargo build --release
       - name: Run

@@ -1,6 +1,7 @@
-use chrono::{SecondsFormat, Utc};
+use chrono::{Local, SecondsFormat};
 use graphql_client::{GraphQLQuery, Response};
-use reqwest::Client;
+use reqwest::{header, Client};
+use std::iter;
 
 type DateTime = String;
 type Date = String;
@@ -19,21 +20,20 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
     let github_username = env!("GITHUB_USERNAME");
     let github_token = env!("GITHUB_ACCESS_TOKEN");
 
+    let headers = iter::once((
+        header::AUTHORIZATION,
+        header::HeaderValue::from_str(&format!("Bearer {}", github_token)).unwrap(),
+    ))
+    .collect();
+
     let client = Client::builder()
         .user_agent("graphql-rust/0.10.0")
-        .default_headers(
-            std::iter::once((
-                reqwest::header::AUTHORIZATION,
-                reqwest::header::HeaderValue::from_str(&format!("Bearer {}", github_token))
-                    .unwrap(),
-            ))
-            .collect(),
-        )
+        .default_headers(headers)
         .build()?;
 
     let variables = single_day_contributions::Variables {
         login: github_username.to_string(),
-        date: Utc::now().to_rfc3339_opts(SecondsFormat::Secs, true),
+        date: Local::now().to_rfc3339_opts(SecondsFormat::Secs, true),
     };
 
     let request_body = SingleDayContributions::build_query(variables);
