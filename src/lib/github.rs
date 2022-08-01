@@ -1,4 +1,4 @@
-use chrono::{Local, SecondsFormat};
+use chrono::Local;
 use graphql_client::{GraphQLQuery, Response};
 use reqwest::{header, Client};
 use std::iter;
@@ -33,7 +33,9 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
 
     let variables = single_day_contributions::Variables {
         login: github_username.to_string(),
-        date: Local::now().to_rfc3339_opts(SecondsFormat::Secs, true),
+        date: Local::now()
+            .format("%Y-%m-%dT00:00:00.000+00:00")
+            .to_string(),
     };
 
     let request_body = SingleDayContributions::build_query(variables);
