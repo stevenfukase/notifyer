@@ -1,6 +1,6 @@
-mod interfaces;
+mod repositories;
 mod lib;
-use interfaces::message;
+use repositories::message;
 use lib::{github, slack};
 use serde_json::{json, Value};
 
