@@ -31,11 +31,16 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
         .default_headers(headers)
         .build()?;
 
+    let today = Local::now()
+        .naive_local()
+        .format("%Y-%m-%dT00:00:00.000+00:00")
+        .to_string();
+
+    println!("Date: {}", today);
+
     let variables = single_day_contributions::Variables {
         login: github_username.to_string(),
-        date: Local::now()
-            .format("%Y-%m-%dT00:00:00.000+00:00")
-            .to_string(),
+        date: today,
     };
 
     let request_body = SingleDayContributions::build_query(variables);
