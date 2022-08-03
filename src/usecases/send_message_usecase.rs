@@ -8,6 +8,13 @@ impl<'a> SendMessageUsecase<'a> {
     }
 }
 
-impl<'a> AbstractUsecase for SendMessageUsecase<'a> {
-
+#[async_trait(?Send)]
+impl<'a> AbstractUsecase<Ok> for SendMessageUsecase<'a> {
+    async fn execute(&self) -> Result<Ok, Error> {
+        let result = self.repository.send().await;
+        match result {
+            Ok(_) => Ok(_),
+            Err(_) => Err(_),
+        }
+    }
 }
