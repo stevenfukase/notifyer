@@ -1,16 +1,12 @@
 mod lib;
-mod repositories;
-mod usecases;
-use lib::github;
+use lib::{github, slack};
 use serde_json::{json, Value};
-
 
 #[tokio::main]
 async fn main() {
     let contribution_count = &github::todays_contribution_count().await.unwrap_or(0);
-    let message = create_msg_blocks(contribution_count).to_string();
-    // slack::send(message).await;
-    usecases::send_message_usecase::SendMessageUsecase::new();
+    let message = create_msg_blocks(contribution_count);
+    slack::send(message).await;
 }
 
 fn create_msg_blocks(contribution_count: &i64) -> Value {
