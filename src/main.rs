@@ -5,7 +5,6 @@ use serde_json::{json, Value};
 #[tokio::main]
 async fn main() {
     let contribution_count = &github::todays_contribution_count().await.unwrap_or(0);
-
     let message = create_msg_blocks(contribution_count);
     slack::send(message).await;
 }
