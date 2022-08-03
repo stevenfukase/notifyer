@@ -1,4 +1,6 @@
 mod lib;
+mod interfaces;
+use interfaces::message;
 use lib::{github, slack};
 use serde_json::{json, Value};
 
@@ -30,4 +32,9 @@ fn todays_contribution_msg(contribution_count: &i64) -> String {
         2 => "You have commited twice today.".to_owned(),
         _ => format!("You have commited {} times today.", contribution_count),
     }
+}
+
+
+async fn main() {
+    message::Message::send(&self)
 }
