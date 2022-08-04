@@ -17,6 +17,10 @@ jobs:
           ref: 'release'
       - name: Build
         run: cargo build --release
+      - name: Set Timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Asia/Japan"
       - name: Run
         working-directory: ./target/release
         run: ./playground
