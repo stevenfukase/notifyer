@@ -31,11 +31,12 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
         .default_headers(headers)
         .build()?;
 
-    let today = Local::now()
+    let now = Local::now();
+    println!("Now: {}", now);
+    let today = now
         .naive_local()
         .format("%Y-%m-%dT00:00:00.000+00:00")
         .to_string();
-
     println!("Date: {}", today);
 
     let variables = single_day_contributions::Variables {
