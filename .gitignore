@@ -1,5 +1,2 @@
-# target/debug/
-# target/release/
-# target/.rustc_info.json
 .cargo/config.toml
 /target
