@@ -8,6 +8,8 @@ async fn main() {
     let message = create_msg_blocks(contribution_count);
     if contribution_count == &0 {
         slack::send(message).await;
+    } else {
+        println!("Contributed at least once today. not sending notification.");
     }
 }
 
