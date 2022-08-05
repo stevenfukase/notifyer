@@ -32,5 +32,5 @@ fn todays_contribution_msg(_contribution_count: &i64) -> String {
     //     2 => "You have commited twice today.".to_owned(),
     //     _ => format!("You have commited {} times today.", contribution_count),
     // }
-    "You haven't commited today".to_owned()
+    "You haven't commited today.".to_owned()
 }
