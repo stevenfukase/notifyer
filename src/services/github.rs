@@ -8,8 +8,8 @@ type Date = String;
 
 #[derive(GraphQLQuery)]
 #[graphql(
-    schema_path = "src/lib/graphql/github_schema.graphql",
-    query_path = "src/lib/graphql/user_contributions.graphql",
+    schema_path = "src/services/graphql/github_schema.graphql",
+    query_path = "src/services/graphql/user_contributions.graphql",
     response_derives = "Debug,Serialize,PartialEq"
 )]
 pub struct SingleDayContributions;

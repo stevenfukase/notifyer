@@ -3,6 +3,10 @@ name = "playground"
 version = "0.0.1"
 edition = "2021"
 
+[lib]
+name = "notifyer"
+path = "src/lib.rs"
+
 [dependencies]
 async-trait = "~0.1"
 chrono = "0.4.19"
