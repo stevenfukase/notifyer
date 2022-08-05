@@ -1,6 +1,7 @@
-pub mod features;
+pub mod controllers;
 pub mod services;
+pub mod usecases;
 
 pub async fn run() {
-    features::notify::notify().await;
+    controllers::notify::notify().await;
 }
