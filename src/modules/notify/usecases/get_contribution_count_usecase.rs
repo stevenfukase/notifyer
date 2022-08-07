@@ -1,5 +1,5 @@
-use crate::repositories::contribution_count_repository_abstract::GetContributionCountRepositoryAbstract;
-use crate::usecases::interfaces::AbstractUsecase;
+use crate::modules::notify::repositories::contribution_count_repository_abstract::GetContributionCountRepositoryAbstract;
+use crate::modules::notify::usecases::interfaces::AbstractUsecase;
 use async_trait::async_trait;
 
 pub struct GetContributionCountUsecase<'a> {
