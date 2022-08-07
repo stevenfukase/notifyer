@@ -1,6 +1,6 @@
-pub mod modules;
+pub mod features;
 pub mod services;
-use crate::modules::notify::notify;
+use crate::features::no_commit::notify;
 
 pub async fn run() {
     notify().await;
