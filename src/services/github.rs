@@ -5,6 +5,7 @@ use std::iter;
 
 type DateTime = String;
 type Date = String;
+type URI = String;
 
 #[derive(GraphQLQuery)]
 #[graphql(
@@ -66,5 +67,5 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
         .contribution_days[0]
         .contribution_count;
 
-    Ok(contribution_count)
+    Ok(contributions_count)
 }
