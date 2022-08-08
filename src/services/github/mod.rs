@@ -85,7 +85,7 @@ pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, 
         .unwrap()
         .json::<Response<CommittedRepoResponse>>()
         .await?;
-    println!("{:?}", parsed_response);
+
     let commit_contributions = parsed_response
         .data
         .unwrap()
