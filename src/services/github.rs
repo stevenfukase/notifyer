@@ -3,6 +3,8 @@ use graphql_client::{GraphQLQuery, Response};
 use reqwest::{header, Client};
 use std::iter;
 
+use self::single_day_contributions::SingleDayContributionsUserContributionsCollection;
+
 type DateTime = String;
 type Date = String;
 type URI = String;
@@ -17,7 +19,9 @@ pub struct SingleDayContributions;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 
-pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
+async fn get_single_day_contributions_collection(
+    date: DateTime,
+) -> Result<SingleDayContributionsUserContributionsCollection, reqwest::Error> {
     let github_username = env!("GITHUB_USERNAME");
     let github_token = env!("GITHUB_ACCESS_TOKEN");
 
@@ -32,14 +36,9 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
         .default_headers(headers)
         .build()?;
 
-    let today = Local::now()
-        .naive_local()
-        .format("%Y-%m-%dT00:00:00.000+00:00")
-        .to_string();
-
     let variables = single_day_contributions::Variables {
         login: github_username.to_string(),
-        date: today,
+        date,
     };
 
     let request_body = SingleDayContributions::build_query(variables);
@@ -63,9 +62,18 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
         .unwrap()
         .contributions_collection;
 
+    Ok(contributions_collection)
+}
+
+pub async fn get_todays_contributions_count() -> Result<i64, reqwest::Error> {
+    let today = Local::now()
+        // TODO: Check if can be omitted
+        // .naive_local()
+        // .format("%Y-%m-%dT00:00:00.000+00:00");
+        .to_string();
+    let contributions_collection = get_single_day_contributions_collection(today).await?;
     let contributions_count = contributions_collection.contribution_calendar.weeks[0]
         .contribution_days[0]
         .contribution_count;
-
     Ok(contributions_count)
 }

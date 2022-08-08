@@ -14,7 +14,7 @@ pub async fn notify() {
         ]
     });
 
-    let contribution_count = &github::todays_contribution_count().await.unwrap_or(0);
+    let contribution_count = &github::get_todays_contributions_count().await.unwrap_or(0);
     if contribution_count == &0 {
         slack::send(havent_commited_message).await;
     } else {
