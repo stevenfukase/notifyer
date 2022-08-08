@@ -1,4 +1,4 @@
-query SingleDayContributions($login: String!, $date: DateTime!) {
+query SingleDayCommitRepo($login: String!, $date: DateTime!) {
   user(login: $login) {
     contributionsCollection(from: $date, to: $date) {
       commitContributionsByRepository {
@@ -15,14 +15,6 @@ query SingleDayContributions($login: String!, $date: DateTime!) {
               }
             }
             occurredAt
-          }
-        }
-      }
-      contributionCalendar {
-        weeks {
-          contributionDays {
-            contributionCount
-            date
           }
         }
       }

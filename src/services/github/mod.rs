@@ -1,26 +1,24 @@
+mod schemas;
 use chrono::Local;
 use graphql_client::{GraphQLQuery, Response};
 use reqwest::{header, Client};
 use std::iter;
 
-use self::single_day_contributions::SingleDayContributionsUserContributionsCollection;
-
-type DateTime = String;
-type Date = String;
-type URI = String;
-
-#[derive(GraphQLQuery)]
-#[graphql(
-    schema_path = "src/services/graphql/github_schema.graphql",
-    query_path = "src/services/graphql/user_contributions.graphql",
-    response_derives = "Debug,Serialize,PartialEq"
-)]
-pub struct SingleDayContributions;
+use schemas::{
+    single_day_commit_repo::single_day_commit_repo,
+    single_day_contributions::{
+        single_day_contributions::{
+            ResponseData as SingleDayContributionsResponse,
+            SingleDayContributionsUserContributionsCollection, Variables,
+        },
+        SingleDayContributions,
+    },
+};
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 
 async fn get_single_day_contributions_collection(
-    date: DateTime,
+    date: String,
 ) -> Result<SingleDayContributionsUserContributionsCollection, reqwest::Error> {
     let github_username = env!("GITHUB_USERNAME");
     let github_token = env!("GITHUB_ACCESS_TOKEN");
@@ -36,7 +34,7 @@ async fn get_single_day_contributions_collection(
         .default_headers(headers)
         .build()?;
 
-    let variables = single_day_contributions::Variables {
+    let variables = Variables {
         login: github_username.to_string(),
         date,
     };
@@ -52,28 +50,38 @@ async fn get_single_day_contributions_collection(
         .await?;
 
     let parsed_response = response
-        .json::<Response<single_day_contributions::ResponseData>>()
+        .json::<Response<SingleDayContributionsResponse>>()
         .await?;
 
-    let contributions_collection = parsed_response
-        .data
-        .unwrap()
-        .user
-        .unwrap()
-        .contributions_collection;
+    // TODO: Error handling
+    let contributions_data = parsed_response.data.unwrap();
+    let user_contributions = contributions_data.user.unwrap().contributions_collection;
 
-    Ok(contributions_collection)
+    Ok(user_contributions)
 }
 
 pub async fn get_todays_contributions_count() -> Result<i64, reqwest::Error> {
-    let today = Local::now()
-        // TODO: Check if can be omitted
-        // .naive_local()
-        // .format("%Y-%m-%dT00:00:00.000+00:00");
-        .to_string();
+    let today = generate_today_date_time();
     let contributions_collection = get_single_day_contributions_collection(today).await?;
     let contributions_count = contributions_collection.contribution_calendar.weeks[0]
         .contribution_days[0]
         .contribution_count;
     Ok(contributions_count)
+}
+
+pub async fn get_todays_contributions() -> Result<i64, reqwest::Error> {
+    let today = generate_today_date_time();
+    let contributions_collection = get_single_day_contributions_collection(today).await?;
+    let contributions_count = contributions_collection.contribution_calendar.weeks[0]
+        .contribution_days[0]
+        .contribution_count;
+    Ok(contributions_count)
+}
+
+fn generate_today_date_time() -> String {
+    Local::now()
+        // TODO: Check if can be omitted
+        // .naive_local()
+        .format("%Y-%m-%dT00:00:00.000+00:00")
+        .to_string()
 }
