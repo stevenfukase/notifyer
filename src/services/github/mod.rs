@@ -12,11 +12,14 @@ use schemas::single_day_contributions::{
     SingleDayContributions,
 };
 
-use schemas::single_day_committed_repo::single_day_committed_repo::{
-    ResponseData as CommittedRepoResponse, Variables as CommittedRepoVariables,
+use schemas::single_day_committed_repo::{
+    single_day_committed_repo::{
+        ResponseData as CommittedRepoResponse,
+        SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepository as ContributionsVecByRepo,
+        Variables as CommittedRepoVariables,
+    },
+    SingleDayCommittedRepo,
 };
-
-use self::schemas::single_day_committed_repo::SingleDayCommittedRepo;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 const GITHUB_USERNAME: &str = env!("GITHUB_USERNAME");
@@ -70,7 +73,7 @@ pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
     Ok(contributions_count)
 }
 
-pub async fn get_todays_committed_repo() -> Result<i64, reqwest::Error> {
+pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
     let today = generate_today_date_time();
     let variables = CommittedRepoVariables {
         login: GITHUB_USERNAME.to_string(),
@@ -83,8 +86,15 @@ pub async fn get_todays_committed_repo() -> Result<i64, reqwest::Error> {
         .json::<Response<CommittedRepoResponse>>()
         .await?;
     println!("{:?}", parsed_response);
+    let commit_contributions = parsed_response
+        .data
+        .unwrap()
+        .user
+        .unwrap()
+        .contributions_collection
+        .commit_contributions_by_repository;
 
-    Ok(5)
+    Ok(commit_contributions)
 }
 
 fn generate_today_date_time() -> String {
