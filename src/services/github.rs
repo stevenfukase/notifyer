@@ -55,14 +55,14 @@ pub async fn todays_contribution_count() -> Result<i64, reqwest::Error> {
         .json::<Response<single_day_contributions::ResponseData>>()
         .await?;
 
-    let contribution_count = parsed_response
+    let contributions_collection = parsed_response
         .data
         .unwrap()
         .user
         .unwrap()
-        .contributions_collection
-        .contribution_calendar
-        .weeks[0]
+        .contributions_collection;
+
+    let contributions_count = contributions_collection.contribution_calendar.weeks[0]
         .contribution_days[0]
         .contribution_count;
 
