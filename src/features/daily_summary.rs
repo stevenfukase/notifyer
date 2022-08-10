@@ -1,7 +1,10 @@
 use crate::services::{
     github::{
         self,
-        schemas::single_day_committed_repo::single_day_committed_repo::SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepository as ContributionsByRepo,
+        schemas::single_day_committed_repo::single_day_committed_repo::{
+            SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepository as ContributionsByRepo,
+            SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepositoryContributionsNodes as ContributionNodes,
+        },
     },
     slack,
 };
@@ -15,16 +18,26 @@ pub async fn send_summary() {
 }
 
 fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
-    let repo_count = todays_contributions.len().try_into().unwrap_or_default();
-    let contribution_count = todays_contributions
+    let repo_count: i64 = todays_contributions.len().try_into().unwrap_or_default();
+
+    let contribution_nodes = todays_contributions
         .iter()
         .map(|item| {
             item.contributions.nodes.as_ref().unwrap()[0]
                 .as_ref()
                 .unwrap()
-                .commit_count
-        })
+        });
+
+    let commit_count = contribution_nodes
+        .map(|item| item.commit_count)
         .sum::<i64>();
+    // let contribution_repos = todays_contributions.iter().map(|item| {
+    //     let node = item.contributions.nodes.as_ref().unwrap()[0]
+    //         .as_ref()
+    //         .unwrap();
+    //     let repository = &node.repository;
+    //     println!("{:?}", repository);
+    // });
 
     json!({
         "blocks": [
@@ -40,7 +53,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": you_have_made_count_text(contribution_count, repo_count),
+                    "text": you_have_made_count_text(commit_count, repo_count),
                 }
             },
             {
@@ -55,13 +68,21 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "fields": [
                     {
                         "type": "mrkdwn",
-                        "text": "*Commits*\n<google.com|stevenfukase/raspberrypi>\t2 commits\n<google.com|stevenfukase/actix-playground>\t2 commits"
-    
+                        "text": "<google.com|stevenfukase/raspberrypi>"
                     },
                     {
                         "type": "mrkdwn",
-                        "text": "*When:*\nSubmitted Aut 10"
+                        "text": "2 commits"
                     },
+                    {
+                        "type": "mrkdwn",
+                        "text": "<google.com|stevenfukase/raspberrypi>"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": "2 commits"
+                    },
+
                 ]
             },
 
