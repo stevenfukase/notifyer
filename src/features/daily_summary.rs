@@ -50,8 +50,19 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "*Commits*\n<google.com|stevenfukase/raspberrypi>\t2 commits\n<google.com|stevenfukase/actix-playground>\t2 commits"
-                }
+                    "text": "*Commits*"
+                },
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Commits*\n<google.com|stevenfukase/raspberrypi>\t2 commits\n<google.com|stevenfukase/actix-playground>\t2 commits"
+    
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": "*When:*\nSubmitted Aut 10"
+                    },
+                ]
             },
 
         ]
@@ -64,43 +75,3 @@ fn you_have_made_count_text(commit_count: i64, repo_count: i64) -> String {
         commit_count, repo_count
     )
 }
-
-// {
-// 	"blocks": [
-// 		{
-// 			"type": "header",
-// 			"text": {
-// 				"type": "plain_text",
-// 				"text": ":computer: Activity Report",
-// 				"emoji": true
-// 			}
-// 		},
-// 		{
-// 			"type": "section",
-// 			"text": {
-// 				"type": "mrkdwn",
-// 				"text": "You have made *6* contributions on *3* repositories"
-// 			}
-// 		},
-// 		{
-// 			"type": "divider"
-// 		},
-// 		{
-// 			"type": "section",
-// 			"text": {
-// 				"type": "mrkdwn",
-// 				"text": "*Commits*\n<google.com|stevenfukase/raspberrypi>\t2 commits\n<google.com|stevenfukase/actix-playground>\t2 commits"
-// 			}
-// 		},
-// 		{
-// 			"type": "divider"
-// 		},
-// 		{
-// 			"type": "section",
-// 			"text": {
-// 				"type": "mrkdwn",
-// 				"text": "*Pull Requests*\n<google.com|stevenfukase/raspberrypi>\n<google.com|stevenfukase/actix-playground>"
-// 			}
-// 		}
-// 	]
-// }
