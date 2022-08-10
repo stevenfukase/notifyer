@@ -1,4 +1,4 @@
-mod schemas;
+pub mod schemas;
 use chrono::Local;
 use graphql_client::{GraphQLQuery, QueryBody, Response};
 use reqwest::{header, Client};
