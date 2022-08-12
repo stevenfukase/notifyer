@@ -9,6 +9,7 @@ use crate::services::{
     slack,
 };
 
+use serde::Serialize;
 use serde_json::{json, Value};
 
 pub async fn send_summary() {
@@ -34,7 +35,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
         .map(|node| node.commit_count as u64)
         .sum();
 
-    #[derive(Debug)]
+    #[derive(Debug, Serialize)]
     struct Field {
         r#type: String,
         text: String,
@@ -58,8 +59,6 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
             ]
         })
         .collect::<Vec<Field>>();
-
-    println!("################ Commit fields: {:?}", commit_fields);
 
     json!({
         "blocks": [
