@@ -3,7 +3,7 @@ use crate::services::{
         self,
         schemas::single_day_committed_repo::single_day_committed_repo::{
             SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepository as ContributionsByRepo,
-            SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepositoryContributionsNodes as ContributionNodes,
+            SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepositoryContributionsNodes as ContributionsNodes,
         },
     },
     slack,
@@ -18,25 +18,34 @@ pub async fn send_summary() {
 }
 
 fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
-    let repo_count: i64 = todays_contributions.len().try_into().unwrap_or_default();
+    let repo_count: &i64 = &todays_contributions.len().try_into().unwrap_or_default();
 
-    let contribution_nodes = todays_contributions
-        .iter()
-        .map(|item| {
-            item.contributions.nodes.as_ref().unwrap()[0]
-                .as_ref()
-                .unwrap()
-        });
+    let contributions_nodes = &todays_contributions.iter().map(|item| {
+        item.contributions.nodes.as_ref().unwrap()[0]
+            .as_ref()
+            .unwrap()
+    });
 
-    let commit_count = contribution_nodes
-        .map(|item| item.commit_count)
+    let commit_count = contributions_nodes
+        .map(|node| node.commit_count)
         .sum::<i64>();
-    // let contribution_repos = todays_contributions.iter().map(|item| {
-    //     let node = item.contributions.nodes.as_ref().unwrap()[0]
-    //         .as_ref()
-    //         .unwrap();
-    //     let repository = &node.repository;
-    //     println!("{:?}", repository);
+
+    struct Field {
+        r#type: String,
+        text: String,
+    }
+
+    // let commit_fields = &contributions_nodes.map(|node| {
+    //     json!([
+    //         {
+    //             "type": "mrkdwn",
+    //             "text": "<google.com|stevenfukase/raspberrypi>"
+    //         },
+    //         {
+    //             "type": "mrkdwn",
+    //             "text": "2 commits"
+    //         },
+    //     ])
     // });
 
     json!({
@@ -53,7 +62,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": you_have_made_count_text(commit_count, repo_count),
+                    "text": you_have_made_count_text(&commit_count, &repo_count),
                 }
             },
             {
@@ -82,7 +91,6 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                         "type": "mrkdwn",
                         "text": "2 commits"
                     },
-
                 ]
             },
 
@@ -90,7 +98,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
     })
 }
 
-fn you_have_made_count_text(commit_count: i64, repo_count: i64) -> String {
+fn you_have_made_count_text(commit_count: &i64, repo_count: &i64) -> String {
     format!(
         "You have made *{}* commits on *{}* repositories",
         commit_count, repo_count
