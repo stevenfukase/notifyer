@@ -1,0 +1,23 @@
+query SingleDayCommittedRepo($login: String!, $date: DateTime!) {
+  user(login: $login) {
+    contributionsCollection(from: $date, to: $date) {
+      commitContributionsByRepository {
+        contributions(last: 100, orderBy: {field: COMMIT_COUNT, direction: ASC}) {
+          nodes {
+            commitCount
+            repository {
+              nameWithOwner
+              url
+              openGraphImageUrl
+              primaryLanguage {
+                name
+                color
+              }
+            }
+            occurredAt
+          }
+        }
+      }
+    }
+  }
+}
