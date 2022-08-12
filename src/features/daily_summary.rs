@@ -20,33 +20,38 @@ pub async fn send_summary() {
 fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
     let repo_count: &i64 = &todays_contributions.len().try_into().unwrap_or_default();
 
-    let contributions_nodes = &todays_contributions.iter().map(|item| {
-        item.contributions.nodes.as_ref().unwrap()[0]
-            .as_ref()
-            .unwrap()
-    });
+    let contributions_nodes = &todays_contributions
+        .iter()
+        .map(|item| {
+            item.contributions.nodes.as_ref().unwrap()[0]
+                .as_ref()
+                .unwrap()
+        })
+        .collect::<Vec<&ContributionsNodes>>();
 
-    let commit_count = contributions_nodes
+    let commit_count = &contributions_nodes
+        .iter()
         .map(|node| node.commit_count)
-        .sum::<i64>();
+        .sum();
 
     struct Field {
         r#type: String,
         text: String,
     }
 
-    // let commit_fields = &contributions_nodes.map(|node| {
-    //     json!([
-    //         {
-    //             "type": "mrkdwn",
-    //             "text": "<google.com|stevenfukase/raspberrypi>"
-    //         },
-    //         {
-    //             "type": "mrkdwn",
-    //             "text": "2 commits"
-    //         },
-    //     ])
-    // });
+    let commit_fields = &contributions_nodes.iter().map(|node| {
+        println!("{:?}", node);
+        json!([
+            {
+                "type": "mrkdwn",
+                "text": "<google.com|stevenfukase/raspberrypi>"
+            },
+            {
+                "type": "mrkdwn",
+                "text": "2 commits"
+            },
+        ])
+    });
 
     json!({
         "blocks": [
