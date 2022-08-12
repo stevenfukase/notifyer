@@ -18,7 +18,7 @@ pub async fn send_summary() {
 }
 
 fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
-    let repo_count: &i64 = &todays_contributions.len().try_into().unwrap_or_default();
+    let repo_count: &u64 = &todays_contributions.len().try_into().unwrap_or_default();
 
     let contributions_nodes = &todays_contributions
         .iter()
@@ -31,27 +31,35 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
 
     let commit_count = &contributions_nodes
         .iter()
-        .map(|node| node.commit_count)
+        .map(|node| node.commit_count as u64)
         .sum();
 
+    #[derive(Debug)]
     struct Field {
         r#type: String,
         text: String,
     }
 
-    let commit_fields = &contributions_nodes.iter().map(|node| {
-        println!("{:?}", node);
-        json!([
-            {
-                "type": "mrkdwn",
-                "text": "<google.com|stevenfukase/raspberrypi>"
-            },
-            {
-                "type": "mrkdwn",
-                "text": "2 commits"
-            },
-        ])
-    });
+    let commit_fields = &contributions_nodes
+        .iter()
+        .flat_map(|node| {
+            vec![
+                Field {
+                    r#type: "mrkdwn".to_owned(),
+                    text: format!(
+                        "<{}|{}>",
+                        node.repository.url, node.repository.name_with_owner
+                    ),
+                },
+                Field {
+                    r#type: "mrkdwn".to_owned(),
+                    text: process_plural(&(node.commit_count as u64), "commit", "commits"),
+                },
+            ]
+        })
+        .collect::<Vec<Field>>();
+
+    println!("################ Commit fields: {:?}", commit_fields);
 
     json!({
         "blocks": [
@@ -67,7 +75,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": you_have_made_count_text(&commit_count, &repo_count),
+                    "text": you_have_made_count_text(commit_count, repo_count),
                 }
             },
             {
@@ -79,33 +87,25 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                     "type": "mrkdwn",
                     "text": "*Commits*"
                 },
-                "fields": [
-                    {
-                        "type": "mrkdwn",
-                        "text": "<google.com|stevenfukase/raspberrypi>"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "2 commits"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "<google.com|stevenfukase/raspberrypi>"
-                    },
-                    {
-                        "type": "mrkdwn",
-                        "text": "2 commits"
-                    },
-                ]
+                "fields": commit_fields
             },
 
         ]
     })
 }
 
-fn you_have_made_count_text(commit_count: &i64, repo_count: &i64) -> String {
+fn you_have_made_count_text(commit_count: &u64, repo_count: &u64) -> String {
+    let commit_plural_text = process_plural(commit_count, "commit", "commits");
+    let repo_plural_text = process_plural(repo_count, "repository", "repositories");
     format!(
-        "You have made *{}* commits on *{}* repositories",
-        commit_count, repo_count
+        "You have made *{}* on *{}*",
+        commit_plural_text, repo_plural_text
     )
+}
+
+fn process_plural(count: &u64, singular: &str, plural: &str) -> String {
+    match count {
+        1 => format!("{} {}", count, singular),
+        _ => format!("{} {}", count, plural),
+    }
 }
