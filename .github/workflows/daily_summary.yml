@@ -3,8 +3,8 @@ name: Daily Summary
 on:
   schedule:
     - cron: "0 0 * * *"
-  push:
-    branches: ["master", "release"]
+  # push:
+  #   branches: ["master", "release"]
 
 jobs:
   cron:

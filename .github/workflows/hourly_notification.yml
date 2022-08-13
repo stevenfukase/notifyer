@@ -3,8 +3,8 @@ name: Hourly Notification
 on:
   schedule:
     - cron: "0 1-23 * * *"
-  push:
-    branches: ["master", "release"]
+  # push:
+  #   branches: ["master", "release"]
 
 jobs:
   cron:
