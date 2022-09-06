@@ -8,7 +8,7 @@ use crate::services::{
     },
     slack,
 };
-use chrono::{DateTime, Duration, Local};
+use chrono::{DateTime, Duration, Local, format::format};
 use serde::Serialize;
 use serde_json::{json, Value};
 
@@ -25,6 +25,22 @@ fn get_date_time(is_yesterday: bool) -> chrono::DateTime<Local> {
         now = now - Duration::days(1);
     }
     now
+}
+
+fn you_have_made_count_text(commit_count: &u64, repo_count: &u64) -> String {
+    let commit_plural_text = process_plural(commit_count, "commit", "commits");
+    let repo_plural_text = process_plural(repo_count, "repository", "repositories");
+    format!(
+        "You have made *{}* on *{}*",
+        commit_plural_text, repo_plural_text
+    )
+}
+
+fn process_plural(count: &u64, singular: &str, plural: &str) -> String {
+    match count {
+        1 => format!("{} {}", count, singular),
+        _ => format!("{} {}", count, plural),
+    }
 }
 
 fn create_message_body(
@@ -72,13 +88,16 @@ fn create_message_body(
         })
         .collect::<Vec<Field>>();
 
+    let subheading = you_have_made_count_text(commit_count, repo_count);
+    let formatted_date = date.format("%B %e");
+
     json!({
         "blocks": [
             {
                 "type": "header",
                 "text": {
                     "type": "plain_text",
-                    "text": format!(":computer: Activity Report for {}", date),
+                    "text": ":computer: Activity Report",
                     "emoji": true
                 }
             },
@@ -86,7 +105,7 @@ fn create_message_body(
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": you_have_made_count_text(commit_count, repo_count),
+                    "text": format!("{}\n{}", formatted_date, subheading),
                 }
             },
             {
@@ -103,20 +122,4 @@ fn create_message_body(
 
         ]
     })
-}
-
-fn you_have_made_count_text(commit_count: &u64, repo_count: &u64) -> String {
-    let commit_plural_text = process_plural(commit_count, "commit", "commits");
-    let repo_plural_text = process_plural(repo_count, "repository", "repositories");
-    format!(
-        "You have made *{}* on *{}*",
-        commit_plural_text, repo_plural_text
-    )
-}
-
-fn process_plural(count: &u64, singular: &str, plural: &str) -> String {
-    match count {
-        1 => format!("{} {}", count, singular),
-        _ => format!("{} {}", count, plural),
-    }
 }
