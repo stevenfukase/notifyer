@@ -1,17 +1,7 @@
 pub mod schemas;
-use chrono::Local;
+use chrono::{Duration, Local};
 use graphql_client::{GraphQLQuery, QueryBody, Response};
 use reqwest::{header, Client};
-use serde::Serialize;
-use std::iter;
-
-use schemas::single_day_contributions::{
-    single_day_contributions::{
-        ResponseData as CommitCountResponse, Variables as CommitCountVariables,
-    },
-    SingleDayContributions,
-};
-
 use schemas::single_day_committed_repo::{
     single_day_committed_repo::{
         ResponseData as CommittedRepoResponse,
@@ -20,6 +10,14 @@ use schemas::single_day_committed_repo::{
     },
     SingleDayCommittedRepo,
 };
+use schemas::single_day_contributions::{
+    single_day_contributions::{
+        ResponseData as CommitCountResponse, Variables as CommitCountVariables,
+    },
+    SingleDayContributions,
+};
+use serde::Serialize;
+use std::iter;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 const GITHUB_USERNAME: &str = env!("GITHUB_USERNAME");
@@ -50,8 +48,16 @@ async fn send_github_request<T: Serialize>(
     Ok(response)
 }
 
+fn generate_date_time(is_yesterday: bool) -> String {
+    let mut now = Local::now();
+    if is_yesterday {
+        now = now - Duration::days(1);
+    }
+    now.format("%Y-%m-%dT00:00:00.000+00:00").to_string()
+}
+
 pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
-    let today = generate_today_date_time();
+    let today = generate_date_time(true);
     let variables = CommitCountVariables {
         login: GITHUB_USERNAME.to_string(),
         date: today,
@@ -74,7 +80,7 @@ pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
 }
 
 pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
-    let today = generate_today_date_time();
+    let today = generate_date_time(true);
     let variables = CommittedRepoVariables {
         login: GITHUB_USERNAME.to_string(),
         date: today,
@@ -95,10 +101,4 @@ pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, 
         .commit_contributions_by_repository;
 
     Ok(commit_contributions)
-}
-
-fn generate_today_date_time() -> String {
-    Local::now()
-        .format("%Y-%m-%dT00:00:00.000+00:00")
-        .to_string()
 }

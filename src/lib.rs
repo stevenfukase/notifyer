@@ -10,6 +10,9 @@ pub async fn run() {
         notify().await;
     }
     if args.contains(&"summary".to_owned()) {
-        send_summary().await;
+        send_summary(false).await;
+    }
+    if args.contains(&"summary_yesterday".to_owned()) {
+        send_summary(true).await;
     }
 }
