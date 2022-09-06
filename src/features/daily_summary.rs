@@ -8,17 +8,45 @@ use crate::services::{
     },
     slack,
 };
-
+use chrono::{DateTime, Duration, Local};
 use serde::Serialize;
 use serde_json::{json, Value};
 
-pub async fn send_summary() {
-    let todays_contributions = github::get_todays_committed_repo().await.unwrap();
-    let message_body = create_message_body(&todays_contributions);
+pub async fn send_summary(is_yesterday: bool) {
+    let date = get_date_time(is_yesterday);
+    let todays_contributions = github::get_committed_repos(date).await.unwrap();
+    let message_body = create_message_body(&todays_contributions, date);
     slack::send(message_body).await;
 }
 
-fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
+fn get_date_time(is_yesterday: bool) -> chrono::DateTime<Local> {
+    let mut now = Local::now();
+    if is_yesterday {
+        now = now - Duration::days(1);
+    }
+    now
+}
+
+fn you_have_made_count_text(commit_count: &u64, repo_count: &u64) -> String {
+    let commit_plural_text = process_plural(commit_count, "commit", "commits");
+    let repo_plural_text = process_plural(repo_count, "repository", "repositories");
+    format!(
+        "You have made *{}* on *{}*",
+        commit_plural_text, repo_plural_text
+    )
+}
+
+fn process_plural(count: &u64, singular: &str, plural: &str) -> String {
+    match count {
+        1 => format!("{} {}", count, singular),
+        _ => format!("{} {}", count, plural),
+    }
+}
+
+fn create_message_body(
+    todays_contributions: &[ContributionsByRepo],
+    date: DateTime<Local>,
+) -> Value {
     let repo_count: &u64 = &todays_contributions.len().try_into().unwrap_or_default();
 
     let contributions_nodes = &todays_contributions
@@ -60,6 +88,9 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
         })
         .collect::<Vec<Field>>();
 
+    let subheading = you_have_made_count_text(commit_count, repo_count);
+    let formatted_date = date.format("%B %e");
+
     json!({
         "blocks": [
             {
@@ -74,7 +105,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": you_have_made_count_text(commit_count, repo_count),
+                    "text": format!("{}\n{}", formatted_date, subheading),
                 }
             },
             {
@@ -91,20 +122,4 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
 
         ]
     })
-}
-
-fn you_have_made_count_text(commit_count: &u64, repo_count: &u64) -> String {
-    let commit_plural_text = process_plural(commit_count, "commit", "commits");
-    let repo_plural_text = process_plural(repo_count, "repository", "repositories");
-    format!(
-        "You have made *{}* on *{}*",
-        commit_plural_text, repo_plural_text
-    )
-}
-
-fn process_plural(count: &u64, singular: &str, plural: &str) -> String {
-    match count {
-        1 => format!("{} {}", count, singular),
-        _ => format!("{} {}", count, plural),
-    }
 }

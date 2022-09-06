@@ -2,9 +2,7 @@ name: Daily Summary
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-  push:
-    branches: ["master", "release"]
+    - cron: "0 15 * * *"
 
 jobs:
   cron:

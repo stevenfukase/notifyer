@@ -22,10 +22,10 @@ pub async fn send(blocks: Value) {
     loop {
         let result = perform_request(blocks.clone()).await;
         if result.is_ok() {
-            println!("Executed");
+            log::info!("Executed");
             break;
         }
-        println!("Failed to send Slack. Retrying");
+        log::error!("Failed to send Slack. Retrying");
         thread::sleep(delay);
     }
 }

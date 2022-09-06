@@ -1,17 +1,8 @@
 pub mod schemas;
-use chrono::Local;
+pub(super) mod utils;
+use chrono::{DateTime, Local};
 use graphql_client::{GraphQLQuery, QueryBody, Response};
 use reqwest::{header, Client};
-use serde::Serialize;
-use std::iter;
-
-use schemas::single_day_contributions::{
-    single_day_contributions::{
-        ResponseData as CommitCountResponse, Variables as CommitCountVariables,
-    },
-    SingleDayContributions,
-};
-
 use schemas::single_day_committed_repo::{
     single_day_committed_repo::{
         ResponseData as CommittedRepoResponse,
@@ -20,6 +11,16 @@ use schemas::single_day_committed_repo::{
     },
     SingleDayCommittedRepo,
 };
+use schemas::single_day_contributions::{
+    single_day_contributions::{
+        ResponseData as CommitCountResponse, Variables as CommitCountVariables,
+    },
+    SingleDayContributions,
+};
+use serde::Serialize;
+use std::iter;
+
+use self::utils::format_date::format_date;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 const GITHUB_USERNAME: &str = env!("GITHUB_USERNAME");
@@ -50,11 +51,10 @@ async fn send_github_request<T: Serialize>(
     Ok(response)
 }
 
-pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
-    let today = generate_today_date_time();
+pub async fn get_todays_commit_count(date: DateTime<Local>) -> Result<i64, reqwest::Error> {
     let variables = CommitCountVariables {
         login: GITHUB_USERNAME.to_string(),
-        date: today,
+        date: format_date(&date),
     };
 
     let request_body = SingleDayContributions::build_query(variables);
@@ -73,11 +73,12 @@ pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
     Ok(contributions_count)
 }
 
-pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
-    let today = generate_today_date_time();
+pub async fn get_committed_repos(
+    date: DateTime<Local>,
+) -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
     let variables = CommittedRepoVariables {
         login: GITHUB_USERNAME.to_string(),
-        date: today,
+        date: format_date(&date),
     };
     let request_body = SingleDayCommittedRepo::build_query(variables);
     let parsed_response = send_github_request(&request_body)
@@ -95,10 +96,4 @@ pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, 
         .commit_contributions_by_repository;
 
     Ok(commit_contributions)
-}
-
-fn generate_today_date_time() -> String {
-    Local::now()
-        .format("%Y-%m-%dT00:00:00.000+00:00")
-        .to_string()
 }
