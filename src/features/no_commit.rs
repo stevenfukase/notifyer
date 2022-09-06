@@ -17,11 +17,11 @@ pub async fn notify() {
 
     let now = Local::now();
     let contribution_count = &github::get_todays_commit_count(now).await.unwrap_or(0);
-    println!("Contribution count: {}", contribution_count);
+    log::debug!("Contribution count: {}", contribution_count);
 
     if contribution_count == &0 {
         slack::send(havent_commited_message).await;
     } else {
-        println!("Contributed at least once today. not sending notification.");
+        log::info!("Contributed at least once today. not sending notification.");
     }
 }
