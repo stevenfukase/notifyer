@@ -1,14 +1,14 @@
 pub mod features;
 pub mod services;
 use crate::features::{daily_summary::send_summary, no_commit::notify};
-use log::info;
 use std::env;
 
 pub async fn run() {
     let args = env::args().collect::<Vec<String>>();
+    println!("{:?}", args);
 
-    if args.is_empty() {
-        info!("args not passed.")
+    if args.len() == 1 {
+        log::info!("args not passed.");
     }
 
     // TODO: Make more elegant
