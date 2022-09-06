@@ -1,5 +1,6 @@
 pub mod schemas;
-use chrono::{Duration, Local};
+pub(super) mod utils;
+use chrono::{DateTime, Local};
 use graphql_client::{GraphQLQuery, QueryBody, Response};
 use reqwest::{header, Client};
 use schemas::single_day_committed_repo::{
@@ -18,6 +19,8 @@ use schemas::single_day_contributions::{
 };
 use serde::Serialize;
 use std::iter;
+
+use self::utils::format_date::format_date;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 const GITHUB_USERNAME: &str = env!("GITHUB_USERNAME");
@@ -48,19 +51,10 @@ async fn send_github_request<T: Serialize>(
     Ok(response)
 }
 
-fn generate_date_time(is_yesterday: bool) -> String {
-    let mut now = Local::now();
-    if is_yesterday {
-        now = now - Duration::days(1);
-    }
-    now.format("%Y-%m-%dT00:00:00.000+00:00").to_string()
-}
-
-pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
-    let today = generate_date_time(true);
+pub async fn get_todays_commit_count(date: DateTime<Local>) -> Result<i64, reqwest::Error> {
     let variables = CommitCountVariables {
         login: GITHUB_USERNAME.to_string(),
-        date: today,
+        date: format_date(&date),
     };
 
     let request_body = SingleDayContributions::build_query(variables);
@@ -79,11 +73,12 @@ pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
     Ok(contributions_count)
 }
 
-pub async fn get_committed_repos(is_yesterday: bool) -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
-    let today = generate_date_time(is_yesterday);
+pub async fn get_committed_repos(
+    date: DateTime<Local>,
+) -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
     let variables = CommittedRepoVariables {
         login: GITHUB_USERNAME.to_string(),
-        date: today,
+        date: format_date(&date),
     };
     let request_body = SingleDayCommittedRepo::build_query(variables);
     let parsed_response = send_github_request(&request_body)

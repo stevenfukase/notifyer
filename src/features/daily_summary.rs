@@ -8,16 +8,29 @@ use crate::services::{
     },
     slack,
 };
+use chrono::{DateTime, Duration, Local};
 use serde::Serialize;
 use serde_json::{json, Value};
 
 pub async fn send_summary(is_yesterday: bool) {
-    let todays_contributions = github::get_committed_repos(is_yesterday).await.unwrap();
-    let message_body = create_message_body(&todays_contributions);
+    let date = get_date_time(is_yesterday);
+    let todays_contributions = github::get_committed_repos(date).await.unwrap();
+    let message_body = create_message_body(&todays_contributions, date);
     slack::send(message_body).await;
 }
 
-fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
+fn get_date_time(is_yesterday: bool) -> chrono::DateTime<Local> {
+    let mut now = Local::now();
+    if is_yesterday {
+        now = now - Duration::days(1);
+    }
+    now
+}
+
+fn create_message_body(
+    todays_contributions: &[ContributionsByRepo],
+    date: DateTime<Local>,
+) -> Value {
     let repo_count: &u64 = &todays_contributions.len().try_into().unwrap_or_default();
 
     let contributions_nodes = &todays_contributions
@@ -65,7 +78,7 @@ fn create_message_body(todays_contributions: &[ContributionsByRepo]) -> Value {
                 "type": "header",
                 "text": {
                     "type": "plain_text",
-                    "text": ":computer: Activity Report",
+                    "text": format!(":computer: Activity Report for {}", date),
                     "emoji": true
                 }
             },

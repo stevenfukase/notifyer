@@ -1,4 +1,5 @@
 use crate::services::{github, slack};
+use chrono::Local;
 use serde_json::json;
 
 pub async fn notify() {
@@ -13,8 +14,8 @@ pub async fn notify() {
             }
         ]
     });
-
-    let contribution_count = &github::get_todays_commit_count().await.unwrap_or(0);
+    let now = Local::now();
+    let contribution_count = &github::get_todays_commit_count(now).await.unwrap_or(0);
     if contribution_count == &0 {
         slack::send(havent_commited_message).await;
     } else {
