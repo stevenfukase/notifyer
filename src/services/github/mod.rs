@@ -79,8 +79,8 @@ pub async fn get_todays_commit_count() -> Result<i64, reqwest::Error> {
     Ok(contributions_count)
 }
 
-pub async fn get_todays_committed_repo() -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
-    let today = generate_date_time(true);
+pub async fn get_committed_repos(is_yesterday: bool) -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
+    let today = generate_date_time(is_yesterday);
     let variables = CommittedRepoVariables {
         login: GITHUB_USERNAME.to_string(),
         date: today,

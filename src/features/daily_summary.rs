@@ -11,8 +11,8 @@ use crate::services::{
 use serde::Serialize;
 use serde_json::{json, Value};
 
-pub async fn send_summary(yesterday: bool) {
-    let todays_contributions = github::get_todays_committed_repo().await.unwrap();
+pub async fn send_summary(is_yesterday: bool) {
+    let todays_contributions = github::get_committed_repos(is_yesterday).await.unwrap();
     let message_body = create_message_body(&todays_contributions);
     slack::send(message_body).await;
 }
