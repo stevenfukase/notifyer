@@ -1,1 +1,6 @@
-/target
+/target/*
+!/target/armv7-unknown-linux-gnueabihf
+/target/armv7-unknown-linux-gnueabihf/*
+!/target/armv7-unknown-linux-gnueabihf/release
+/target/armv7-unknown-linux-gnueabihf/release/*
+!/target/armv7-unknown-linux-gnueabihf/release/notifyer
