@@ -8,7 +8,7 @@ use crate::services::{
     },
     slack,
 };
-use chrono::{DateTime, Duration, Local, format::format};
+use chrono::{DateTime, Duration, Local};
 use serde::Serialize;
 use serde_json::{json, Value};
 
