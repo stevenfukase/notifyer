@@ -4,6 +4,7 @@ linker = "armv7-unknown-linux-gnueabihf-cc"
 
 [env]
 RUST_LOG = "debug"
+# Fill below
 SLACK_CHANNEL_ID = ""
 SLACK_BOT_USER_OAUTH_TOKEN = ""
 GITHUB_USERNAME = ""
