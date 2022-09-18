@@ -1,7 +1,11 @@
 [package]
 name = "notifyer"
-version = "0.0.1"
+version = "1.0.0"
+authors = ["stevenfukase <fukasesteven@gmail.com"]
 edition = "2021"
+description = "GitHub streak notifyer"
+readme = "README.md"
+repository = "https://github.com/stevenfukase/notifyer"
 
 [lib]
 name = "notifyer"
