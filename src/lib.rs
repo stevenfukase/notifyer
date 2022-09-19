@@ -23,6 +23,4 @@ pub async fn run() {
     if args.contains(&"summary_yesterday".to_owned()) {
         send_summary(true).await;
     }
-
-    log::warn!("Valid args not found");
 }
