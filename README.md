@@ -58,7 +58,7 @@ Linkerをインストールし、rustupにtoolchainを追加する
 
     ```shell
     # 0時を回ったら1日のまとめを通知する
-    0 0 * * * cd Projects && ./notifyer summary_yesterda
+    0 0 * * * cd Projects && ./notifyer summary_yesterday
 
     # 1時から23時までGitHubを更新してなかったら通知する
     0 1-23 * * * cd Projects && ./notifyer notify
