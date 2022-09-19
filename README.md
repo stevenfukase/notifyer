@@ -2,7 +2,8 @@
 
 Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定した時間にSlackで通知するMiniアプリ
 
-## Features
+
+## 機能
 
 ### GitHubを更新してないときに通知を送る
 
@@ -23,3 +24,13 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 ```
 
 ![Summary](readme_images/summary.png)
+
+## 設定
+
+### I. Cross compileする
+
+Raspberry Pi用にCross compileする
+
+### II. Slackの準備
+
+### III. Cron/deployの準備
