@@ -33,6 +33,7 @@ jobs:
         run: |
           cd ./.cargo
           touch config.toml
+          echo [env] >> cargo.toml
           echo aws_host="$SLACK_CHANNEL_ID" >> cargo.toml
           echo aws_port="$SLACK_BOT_USER_OAUTH_TOKEN" >> cargo.toml
           echo aws_user="$GITHUB_USERNAME" >> cargo.toml
