@@ -1,6 +1,6 @@
 [package]
 name = "notifyer"
-version = "1.0.0"
+version = ".0.0"
 authors = ["stevenfukase <fukasesteven@gmail.com"]
 edition = "2021"
 description = "GitHub streak notifyer"
