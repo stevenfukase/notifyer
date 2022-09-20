@@ -1,6 +1,6 @@
 # Notifyer
 
-Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定した時間にSlackで通知するMiniアプリ
+Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定した時間にSlackで通知するミニCLIアプリ
 
 ## 目的
 
