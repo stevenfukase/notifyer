@@ -27,14 +27,18 @@ jobs:
       - name: Put dummy env vars
         run: |
           cd ./.cargo
-          touch config.toml
-          echo [env] >> cargo.toml
-          echo SLACK_CHANNEL_ID = "channelid" >> cargo.toml
-          echo SLACK_BOT_USER_OAUTH_TOKEN = "slacktoken" >> cargo.toml
-          echo GITHUB_USERNAME = "ghusername" >> cargo.toml
-          echo GITHUB_ACCESS_TOKEN = "ghtoken" >> cargo.toml
+          cat <<EOF > config.toml
+          [env]
+          SLACK_CHANNEL_ID = "channelid"
+          SLACK_BOT_USER_OAUTH_TOKEN = "slacktoken"
+          GITHUB_USERNAME = "ghusername"
+          GITHUB_ACCESS_TOKEN = "ghtoken"
+          EOF
+          echo "cat config.toml"
+          cat config.toml
+
       - name: Build Docs
-        run: ls && cd ./.cargo && ls && cat ./config.toml &&cargo doc
+        run: cargo doc
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
