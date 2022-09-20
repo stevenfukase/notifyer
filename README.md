@@ -2,6 +2,11 @@
 
 Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定した時間にSlackで通知するMiniアプリ
 
+## 目的
+
+- 購入したRaspberry Pi Zero 2 Wの有効活用
+- Linux、Rustの学習
+
 ## 機能
 
 ### GitHubを更新してないときに通知する
