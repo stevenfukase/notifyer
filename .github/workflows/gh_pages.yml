@@ -38,7 +38,9 @@ jobs:
           cat config.toml
 
       - name: Build Docs
-        run: cargo doc
+        run: cargo doc --no-docs &&
+          echo "<meta http-equiv=\"refresh\" content=\"0; url=build_wheel\">" > target/doc/index.html &&
+          cp -r target/doc ./docs
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
