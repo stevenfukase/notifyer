@@ -2,8 +2,8 @@ name: Deploy Docs to GitHub Pages
 
 on:
   push:
-       tags:
-       - "v*"
+    tags:
+      - "v*"
   workflow_dispatch:
 
 permissions:
@@ -24,6 +24,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Put dummy env vars
+        env:
+          SLACK_CHANNEL_ID: "channelid"
+          SLACK_BOT_USER_OAUTH_TOKEN: "slacktoken"
+          GITHUB_USERNAME: "ghusername"
+          GITHUB_ACCESS_TOKEN: "ghtoken"
+        with:
+          path: "./.cargo"
+        run: |
+          touch config.toml
+          echo aws_host="$SLACK_CHANNEL_ID" >> cargo.toml
+          echo aws_port="$SLACK_BOT_USER_OAUTH_TOKEN" >> cargo.toml
+          echo aws_user="$GITHUB_USERNAME" >> cargo.toml
+          echo dbname="$GITHUB_ACCESS_TOKEN" >> cargo.toml
       - name: Build Docs
         run: cargo doc
       - name: Setup Pages
@@ -31,7 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './target/doc/notifyer'
+          path: "./target/doc/notifyer"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
