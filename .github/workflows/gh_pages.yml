@@ -25,19 +25,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Put dummy env vars
-        env:
-          SLACK_CHANNEL_ID: "channelid"
-          SLACK_BOT_USER_OAUTH_TOKEN: "slacktoken"
-          GITHUB_USERNAME: "ghusername"
-          GITHUB_ACCESS_TOKEN: "ghtoken"
         run: |
           cd ./.cargo
           touch config.toml
           echo [env] >> cargo.toml
-          echo aws_host="$SLACK_CHANNEL_ID" >> cargo.toml
-          echo aws_port="$SLACK_BOT_USER_OAUTH_TOKEN" >> cargo.toml
-          echo aws_user="$GITHUB_USERNAME" >> cargo.toml
-          echo dbname="$GITHUB_ACCESS_TOKEN" >> cargo.toml
+          echo SLACK_CHANNEL_ID = "channelid" >> cargo.toml
+          echo SLACK_BOT_USER_OAUTH_TOKEN = "slacktoken" >> cargo.toml
+          echo GITHUB_USERNAME = "ghusername" >> cargo.toml
+          echo GITHUB_ACCESS_TOKEN = "ghtoken" >> cargo.toml
       - name: Build Docs
         run: cargo doc
       - name: Setup Pages
