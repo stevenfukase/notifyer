@@ -34,7 +34,7 @@ jobs:
           echo GITHUB_USERNAME = "ghusername" >> cargo.toml
           echo GITHUB_ACCESS_TOKEN = "ghtoken" >> cargo.toml
       - name: Build Docs
-        run: cargo doc
+        run: ls && cd ./.cargo && ls && cargo doc
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
