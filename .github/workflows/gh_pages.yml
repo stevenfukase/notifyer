@@ -30,9 +30,8 @@ jobs:
           SLACK_BOT_USER_OAUTH_TOKEN: "slacktoken"
           GITHUB_USERNAME: "ghusername"
           GITHUB_ACCESS_TOKEN: "ghtoken"
-        with:
-          path: "./.cargo"
         run: |
+          cd ./cargo
           touch config.toml
           echo aws_host="$SLACK_CHANNEL_ID" >> cargo.toml
           echo aws_port="$SLACK_BOT_USER_OAUTH_TOKEN" >> cargo.toml
