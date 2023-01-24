@@ -23,7 +23,7 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 # 同日のコミット状況を通知する
 ./notifyer summary
 
-# 前日の場合 (12時を回ったあとに通知するときに便利)
+# 前日の場合 (24時を回ったあとに通知するときに便利)
 ./notifyer summary_yesterday
 ```
 
