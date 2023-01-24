@@ -40,7 +40,7 @@ Slackアプリを作り、channel IDとBot User OAuth Tokenを取得する
     - [Channel IDの取得方法](https://api.slack.com/messaging/sending)
 
 1. 環境変数の設定  
-config.example.tomlを参考にし、.cargo/config.tomlに上記で取得したものを入れる
+config.example.tomlを参考に上記で取得したものを.cargo/config.tomlに入れる
 
 1. Cross compileの準備  
 Linkerをインストールし、rustupにtoolchainを追加する
