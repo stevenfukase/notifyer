@@ -1,4 +1,5 @@
 use super::abstract_usecase::AbstractUsecase;
+use crate::domains::application_error::ApplicationError;
 use async_trait::async_trait;
 
 pub struct NotifyNoCommitUsecase {}

@@ -1,7 +1,7 @@
 pub mod schemas;
 pub(super) mod utils;
 use chrono::{DateTime, Local};
-use graphql_client::{GraphQLQuery, QueryBody, Response};
+use graphql_client::{QueryBody, Response};
 use reqwest::{header, Client};
 use schemas::single_day_committed_repo::{
     single_day_committed_repo::{

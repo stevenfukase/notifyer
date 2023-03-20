@@ -1,3 +1,4 @@
+use crate::domains::application_error::ApplicationError;
 use async_trait::async_trait;
 
 #[async_trait(?Send)]
