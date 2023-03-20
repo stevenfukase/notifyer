@@ -1,4 +1,4 @@
-use async_trait;
+use async_trait::{self, async_trait};
 
 #[async_trait(?Send)]
 pub trait AbstractUsecase<T> {
