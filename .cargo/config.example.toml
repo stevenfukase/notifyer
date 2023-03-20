@@ -2,6 +2,9 @@
 [target.armv7-unknown-linux-gnueabihf]
 linker = "armv7-unknown-linux-gnueabihf-cc"
 
+[registries.crates-io]
+protocol = "sparse"
+
 [env]
 RUST_LOG = "debug"
 # Fill below
