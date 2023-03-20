@@ -31,8 +31,8 @@ jobs:
           [env]
           SLACK_CHANNEL_ID = "channelid"
           SLACK_BOT_USER_OAUTH_TOKEN = "slacktoken"
-          GITHUB_USERNAME = "ghusername"
-          GITHUB_ACCESS_TOKEN = "ghtoken"
+          GIT_USERNAME = "ghusername"
+          GIT_ACCESS_TOKEN = "ghtoken"
           EOF
           echo "cat config.toml"
           cat config.toml

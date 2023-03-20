@@ -23,12 +23,12 @@ use std::iter;
 use self::utils::format_date::format_date;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
-const GITHUB_USERNAME: &str = env!("GITHUB_USERNAME");
+const GIT_USERNAME: &str = env!("GIT_USERNAME");
 
 async fn send_github_request<T: Serialize>(
     request_body: &QueryBody<T>,
 ) -> Result<reqwest::Response, reqwest::Error> {
-    let github_token = env!("GITHUB_ACCESS_TOKEN");
+    let github_token = env!("GIT_ACCESS_TOKEN");
     let headers = iter::once((
         header::AUTHORIZATION,
         header::HeaderValue::from_str(&format!("Bearer {}", github_token)).unwrap(),
@@ -53,7 +53,7 @@ async fn send_github_request<T: Serialize>(
 
 pub async fn get_todays_commit_count(date: DateTime<Local>) -> Result<i64, reqwest::Error> {
     let variables = CommitCountVariables {
-        login: GITHUB_USERNAME.to_string(),
+        login: GIT_USERNAME.to_string(),
         date: format_date(&date),
     };
 
@@ -77,7 +77,7 @@ pub async fn get_committed_repos(
     date: DateTime<Local>,
 ) -> Result<Vec<ContributionsVecByRepo>, reqwest::Error> {
     let variables = CommittedRepoVariables {
-        login: GITHUB_USERNAME.to_string(),
+        login: GIT_USERNAME.to_string(),
         date: format_date(&date),
     };
     let request_body = SingleDayCommittedRepo::build_query(variables);
