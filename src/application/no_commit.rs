@@ -1,4 +1,4 @@
-use crate::services::{github, slack};
+use crate::adapters::{github, slack};
 use chrono::Local;
 use serde_json::json;
 

@@ -1,4 +1,4 @@
-use crate::services::{
+use crate::adapters::{
     github::{
         self,
         schemas::single_day_committed_repo::single_day_committed_repo::{

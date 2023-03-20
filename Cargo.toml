@@ -7,9 +7,8 @@ description = "GitHub streak notifyer"
 readme = "README.md"
 repository = "https://github.com/stevenfukase/notifyer"
 
-[lib]
-name = "notifyer"
-path = "src/lib.rs"
+[workspace]
+members = ["adapters", "application"]
 
 [dependencies]
 async-trait = "~0.1"
