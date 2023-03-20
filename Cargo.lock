@@ -3,6 +3,10 @@
 version = 3
 
 [[package]]
+name = "adapters"
+version = "0.1.0"
+
+[[package]]
 name = "aho-corasick"
 version = "0.7.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -10,6 +14,10 @@ checksum = "b4f55bd91a0978cbfd91c457a164bab8b4001c833b7f323132c0a4e1922dd44e"
 dependencies = [
  "memchr",
 ]
+
+[[package]]
+name = "application"
+version = "0.1.0"
 
 [[package]]
 name = "ascii"
@@ -402,6 +410,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "infrastructure"
+version = "0.1.0"
+
+[[package]]
 name = "ipnet"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -491,6 +503,7 @@ dependencies = [
  "chrono",
  "env_logger",
  "graphql_client",
+ "infrastructure",
  "log",
  "reqwest",
  "serde",

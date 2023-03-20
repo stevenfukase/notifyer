@@ -1,6 +1,3 @@
-pub mod application;
-pub mod adapters;
-use crate::application::{daily_summary::send_summary, no_commit::notify};
 use std::env;
 
 pub async fn run() {

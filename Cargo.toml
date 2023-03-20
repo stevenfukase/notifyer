@@ -8,9 +8,10 @@ readme = "README.md"
 repository = "https://github.com/stevenfukase/notifyer"
 
 [workspace]
-members = ["adapters", "application"]
+members = ["adapters", "application", "infrastructure"]
 
 [dependencies]
+infrastructure = { path = "./infrastructure" }
 async-trait = "~0.1"
 chrono = "0.4.19"
 graphql_client = "0.11.0"
