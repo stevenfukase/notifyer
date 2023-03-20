@@ -8,16 +8,16 @@ pub async fn run() {
         return;
     }
 
-    // TODO: Make more elegant
-    if args.contains(&"notify".to_owned()) {
-        notify().await;
-    }
+    // // TODO: Make more elegant
+    // if args.contains(&"notify".to_owned()) {
+    //     notify().await;
+    // }
 
-    if args.contains(&"summary".to_owned()) {
-        send_summary(false).await;
-    }
+    // if args.contains(&"summary".to_owned()) {
+    //     send_summary(false).await;
+    // }
 
-    if args.contains(&"summary_yesterday".to_owned()) {
-        send_summary(true).await;
-    }
+    // if args.contains(&"summary_yesterday".to_owned()) {
+    //     send_summary(true).await;
+    // }
 }
