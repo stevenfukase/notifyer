@@ -1,4 +1,10 @@
-use crate::presenters::process_plural::process_plural;
+use crate::presenters::{
+    process_plural::process_plural, you_have_made_count_text::you_have_made_count_text,
+};
+use application::domains::{
+    entities::contributed_repository::ContributedRepository,
+    value_objects::{date_time::DateTime, message::Message},
+};
 use serde::Serialize;
 use serde_json::json;
 

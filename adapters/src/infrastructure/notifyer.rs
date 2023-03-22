@@ -1,9 +1,5 @@
-use adapters::controllers::{
-    notify::notify, summary::summary, summary_yesterday::summary_yesterday,
-};
-use std::env;
-
 use crate::app_state::AppState;
+use std::env;
 
 pub async fn run(
     git_username: &str,
@@ -32,22 +28,10 @@ pub async fn run(
     }
 
     if args.contains(&"summary".to_owned()) {
-        summary_yesterday(
-            git_username,
-            git_access_token,
-            slack_channel_id,
-            slack_bot_user_oauth_token,
-        )
-        .await;
+        summary_yesterday(&app_state).await;
     }
 
     if args.contains(&"summary_yesterday".to_owned()) {
-        summary(
-            git_username,
-            git_access_token,
-            slack_channel_id,
-            slack_bot_user_oauth_token,
-        )
-        .await;
+        summary(&app_state).await;
     }
 }

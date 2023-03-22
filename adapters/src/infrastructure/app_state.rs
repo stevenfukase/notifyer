@@ -1,10 +1,13 @@
+use crate::git::git_repository::GitRepository;
+use crate::messaging::messaging_repository::MessagingRepository;
+
 pub struct AppState {
     pub git_username: String,
     pub git_access_token: String,
     pub slack_channel_id: String,
     pub slack_bot_user_oauth_token: String,
-    pub messaging_repository: MessagingRepositoryAbstract,
-    pub git_repository: GitRepositoryAbstract,
+    pub messaging_repository: MessagingRepository,
+    pub git_repository: GitRepository,
 }
 
 impl AppState {
@@ -13,8 +16,8 @@ impl AppState {
         git_access_token: &str,
         slack_channel_id: &str,
         slack_bot_user_oauth_token: &str,
-        messaging_repository: MessagingRepositoryAbstract,
-        git_repository: GitRepositoryAbstract,
+        messaging_repository: MessagingRepository,
+        git_repository: GitRepository,
     ) -> Self {
         Self {
             git_username: git_username.to_owned(),

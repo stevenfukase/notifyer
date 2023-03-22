@@ -8,10 +8,10 @@ readme = "README.md"
 repository = "https://github.com/stevenfukase/notifyer"
 
 [workspace]
-members = ["adapters", "application"]
+members = ["adapters", "application", "infrastructure"]
 
 [dependencies]
-infrastructure = { path = "./adapters" }
+infrastructure = { path = "./infrastructure" }
 tokio = { version = "1", features = ["full"] }
 log = "0.4.0"
 env_logger = "0.9.0"

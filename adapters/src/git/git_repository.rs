@@ -95,3 +95,5 @@ pub async fn get_committed_repos(
 
     Ok(commit_contributions)
 }
+
+pub struct GitRepository;
