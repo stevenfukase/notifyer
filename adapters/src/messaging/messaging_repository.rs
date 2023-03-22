@@ -7,7 +7,12 @@ use serde_json::{json, Value};
 use std::{thread, time};
 const SLACK_SEND_MESSAGE_ENDPOINT: &str = "https://slack.com/api/chat.postMessage";
 
-pub struct MessagingRepository {}
+#[non_exhaustive]
+pub struct MessagingRepository {
+    pub slack_channel_id: String,
+}
+
+
 
 #[async_trait(?Send)]
 impl MessagingRepositoryAbstract for MessagingRepository {

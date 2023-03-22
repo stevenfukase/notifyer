@@ -13,4 +13,6 @@ pub trait GitRepositoryAbstract {
         &self,
         date: &DateTime,
     ) -> Result<Vec<ContributedRepository>, ApplicationError>;
+
+    async fn get_commit_count(&self, date: &DateTime) -> Result<u32, ApplicationError>;
 }

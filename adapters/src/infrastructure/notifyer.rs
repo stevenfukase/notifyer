@@ -1,4 +1,6 @@
-use crate::app_state::AppState;
+use crate::git::git_repository::GitRepository;
+
+use super::app_state::AppState;
 use std::env;
 
 pub async fn run(
@@ -7,12 +9,13 @@ pub async fn run(
     slack_channel_id: &str,
     slack_bot_user_oauth_token: &str,
 ) {
+    let git_repository = GitRepository {};
+
     let app_state = AppState::new(
         git_username,
         git_access_token,
         slack_channel_id,
         slack_bot_user_oauth_token,
-        messaging_repository,
         git_repository,
     );
 

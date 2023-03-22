@@ -22,7 +22,7 @@ impl<'a> NotifySummaryUsecase<'a> {
 #[async_trait(?Send)]
 impl<'a> AbstractUsecase<Vec<ContributedRepository>> for NotifySummaryUsecase<'a> {
     async fn execute(&self) -> Result<Vec<ContributedRepository>, ApplicationError> {
-        let now = DateTime::now();
-        self.git_repository.get_committed_repos(&now).await
+        let yesterday = DateTime::yesterday();
+        self.git_repository.get_committed_repos(&yesterday).await
     }
 }
