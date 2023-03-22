@@ -4,7 +4,6 @@ use crate::{
         git_repository_abstract::GitRepositoryAbstract,
         messaging_repository_abstract::MessagingRepositoryAbstract,
     },
-    utils::messaging::create_summary_message_body::create_summary_message_body,
 };
 
 use super::abstract_usecase::AbstractUsecase;
@@ -42,11 +41,9 @@ impl<'a> AbstractUsecase<()> for NotifySummaryUsecase<'a> {
 
         let todays_contributions = self
             .git_repository
-            .get_committed_repos(date.clone())
+            .get_committed_repos(&date)
             .await?;
 
-        let message_body = create_summary_message_body(&todays_contributions, date);
-
-        self.messaging_repository.send(&message_body).await
+        self.messaging_repository.send(&todays_contributions, date).await
     }
 }

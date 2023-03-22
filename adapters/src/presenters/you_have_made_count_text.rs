@@ -1,6 +1,6 @@
-use crate::utils::messaging::process_plural::process_plural;
+use crate::presenters::process_plural::process_plural;
 
-pub fn you_have_made_count_text(commit_count: &u32, repo_count: &u32) -> String {
+pub(super) fn you_have_made_count_text(commit_count: &u32, repo_count: &u32) -> String {
     let commit_plural_text = process_plural(commit_count, "commit", "commits");
     let repo_plural_text = process_plural(repo_count, "repository", "repositories");
     format!(

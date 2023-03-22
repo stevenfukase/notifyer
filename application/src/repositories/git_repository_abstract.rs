@@ -11,6 +11,6 @@ use mockall::{predicate::*, *};
 pub trait GitRepositoryAbstract {
     async fn get_committed_repos(
         &self,
-        date: DateTime,
+        date: &DateTime,
     ) -> Result<Vec<ContributedRepository>, ApplicationError>;
 }
