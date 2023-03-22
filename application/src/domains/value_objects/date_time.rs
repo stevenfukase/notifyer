@@ -1,8 +1,15 @@
-#[derive(Debug)]
-pub struct DateTime<T>(T);
+use chrono::{Duration, Local};
 
-impl<T> DateTime<T> {
-    pub fn new(date_time: T) -> Self {
-        Self(date_time)
+#[derive(Debug)]
+pub struct DateTime(chrono::DateTime<Local>);
+
+impl DateTime {
+    pub fn now() -> Self {
+        Self(Local::now())
+    }
+
+    pub fn yesterday() -> Self {
+        let mut now = Local::now() - Duration::days(1);
+        Self(now)
     }
 }
