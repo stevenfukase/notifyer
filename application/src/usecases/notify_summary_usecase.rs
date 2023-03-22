@@ -39,10 +39,14 @@ impl<'a> AbstractUsecase<()> for NotifySummaryUsecase<'a> {
         } else {
             DateTime::now()
         };
-        let todays_contributions = self.git_repository.get_committed_repos(date).await?;
-        let message_body = create_summary_message_body(&todays_contributions, date);
-        &self.messaging_repository.send(&message_body).await;
 
-        Ok(())
+        let todays_contributions = self
+            .git_repository
+            .get_committed_repos(date.clone())
+            .await?;
+
+        let message_body = create_summary_message_body(&todays_contributions, date);
+
+        self.messaging_repository.send(&message_body).await
     }
 }

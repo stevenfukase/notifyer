@@ -1,6 +1,6 @@
 use chrono::{Duration, Local};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct DateTime(chrono::DateTime<Local>);
 
 impl DateTime {
@@ -9,8 +9,7 @@ impl DateTime {
     }
 
     pub fn yesterday() -> Self {
-        let mut now = Local::now() - Duration::days(1);
-        Self(now)
+        Self(Local::now() - Duration::days(1))
     }
 
     pub fn formatted(&self) -> String {

@@ -9,6 +9,6 @@ impl Message {
     }
 
     pub fn inner(&self) -> Value {
-        self.0
+        self.0.to_owned()
     }
 }
