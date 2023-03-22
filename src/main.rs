@@ -3,6 +3,7 @@ use infrastructure::notifyer;
 #[tokio::main]
 async fn main() {
     env_logger::init();
+
     let git_username = env!("GIT_USERNAME");
     let git_access_token = env!("GIT_ACCESS_TOKEN");
     let slack_channel_id = env!("SLACK_CHANNEL_ID");

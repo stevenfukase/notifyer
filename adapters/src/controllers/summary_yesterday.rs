@@ -1,10 +1,9 @@
 use application::domains::enums::application_error::ApplicationError;
 
+use crate::infrastructure::app_state;
+
 pub fn summary_yesterday(
-    git_username: &str,
-    git_access_token: &str,
-    slack_channel_id: &str,
-    slack_bot_user_oauth_token: &str,
+    app_state: AppState
 ) -> Result<(), ApplicationError> {
     todo!()
 }

@@ -29,7 +29,7 @@ impl<'a> NotifyNoCommitUsecase<'a> {
 #[async_trait(?Send)]
 impl<'a> AbstractUsecase<String> for NotifyNoCommitUsecase<'a> {
     async fn execute(&self) -> Result<String, ApplicationError> {
-        todo!()
+        let contribution_count = self.git_repository.get_commit_count(self.date_time);
     }
 }
 

@@ -1,6 +1,6 @@
 use crate::domains::{
     entities::contributed_repository::ContributedRepository,
-    enums::application_error::ApplicationError, value_objects::date_time::DateTime,
+    enums::application_error::ApplicationError,
 };
 use async_trait::async_trait;
 #[cfg(test)]
@@ -12,6 +12,5 @@ pub trait MessagingRepositoryAbstract {
     async fn send(
         &self,
         todays_contributions: &Vec<ContributedRepository>,
-        date: DateTime,
     ) -> Result<(), ApplicationError>;
 }

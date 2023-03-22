@@ -9,23 +9,3 @@ pub struct AppState {
     pub messaging_repository: MessagingRepository,
     pub git_repository: GitRepository,
 }
-
-impl AppState {
-    pub fn new(
-        git_username: &str,
-        git_access_token: &str,
-        slack_channel_id: &str,
-        slack_bot_user_oauth_token: &str,
-        messaging_repository: MessagingRepository,
-        git_repository: GitRepository,
-    ) -> Self {
-        Self {
-            git_username: git_username.to_owned(),
-            git_access_token: git_access_token.to_owned(),
-            slack_channel_id: slack_channel_id.to_owned(),
-            slack_bot_user_oauth_token: slack_bot_user_oauth_token.to_owned(),
-            messaging_repository,
-            git_repository,
-        }
-    }
-}

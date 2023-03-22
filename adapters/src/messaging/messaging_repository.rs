@@ -1,21 +1,35 @@
-use application::repositories::messaging_repository_abstract::MessagingRepositoryAbstract;
+use application::{
+    domains::value_objects::date_time::DateTime,
+    repositories::messaging_repository_abstract::MessagingRepositoryAbstract,
+};
 use async_trait::async_trait;
 use serde_json::{json, Value};
 use std::{thread, time};
-
 const SLACK_SEND_MESSAGE_ENDPOINT: &str = "https://slack.com/api/chat.postMessage";
 
-pub struct MessagingRepository {
-    pub app_state: AppState,
-}
+pub struct MessagingRepository {}
 
 #[async_trait(?Send)]
 impl MessagingRepositoryAbstract for MessagingRepository {
-    async fn send(&self, blocks: Value) {
+    async fn send(&self, blocks: Value, date_time: DateTime) {
         let delay = time::Duration::from_secs(3);
 
+        let perform_request = || async {
+            let request_body = json!({
+                "channel": env!("SLACK_CHANNEL_ID"),
+                "blocks": blocks["blocks"],
+            });
+
+            reqwest::Client::new()
+                .post(SLACK_SEND_MESSAGE_ENDPOINT)
+                .bearer_auth(env!("SLACK_BOT_USER_OAUTH_TOKEN"))
+                .json(&request_body)
+                .send()
+                .await
+        };
+
         loop {
-            let result = perform_request(blocks.clone()).await;
+            let result = perform_request().await;
             if result.is_ok() {
                 log::info!("Executed");
                 break;
@@ -24,18 +38,4 @@ impl MessagingRepositoryAbstract for MessagingRepository {
             thread::sleep(delay);
         }
     }
-}
-
-async fn perform_request(message_blocks: Value) -> Result<reqwest::Response, reqwest::Error> {
-    let request_body = json!({
-        "channel": env!("SLACK_CHANNEL_ID"),
-        "blocks": message_blocks["blocks"],
-    });
-
-    reqwest::Client::new()
-        .post(SLACK_SEND_MESSAGE_ENDPOINT)
-        .bearer_auth(env!("SLACK_BOT_USER_OAUTH_TOKEN"))
-        .json(&request_body)
-        .send()
-        .await
 }
