@@ -7,6 +7,7 @@ name = "adapters"
 version = "0.1.0"
 dependencies = [
  "application",
+ "async-trait",
  "chrono",
  "graphql_client",
  "reqwest",
@@ -52,13 +53,13 @@ checksum = "eab1c04a571841102f5345a8fc0f6bb3d31c315dec879b5c6e42e40ce7ffa34e"
 
 [[package]]
 name = "async-trait"
-version = "0.1.66"
+version = "0.1.67"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b84f9ebcc6c1f5b8cb160f6990096a5c127f423fcb6e1ccc46c370cbdfb75dfc"
+checksum = "86ea188f25f0255d8f92797797c97ebf5631fa88178beb1a46fdf5622c9a00e4"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.98",
+ "syn 2.0.5",
 ]
 
 [[package]]
@@ -549,6 +550,7 @@ dependencies = [
 name = "infrastructure"
 version = "0.1.0"
 dependencies = [
+ "adapters",
  "log",
 ]
 

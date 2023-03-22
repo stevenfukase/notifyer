@@ -1,6 +1,11 @@
 use std::env;
 
-pub async fn run() {
+pub async fn run(
+    git_username: &str,
+    git_access_token: &str,
+    slack_channel_id: &str,
+    slack_bot_user_oauth_token: &str,
+) {
     let args = env::args().collect::<Vec<String>>();
 
     if args.len() == 1 {
@@ -8,16 +13,16 @@ pub async fn run() {
         return;
     }
 
-    // // TODO: Make more elegant
-    // if args.contains(&"notify".to_owned()) {
-    //     notify().await;
-    // }
+    // TODO: Make more elegant
+    if args.contains(&"notify".to_owned()) {
+        notify().await;
+    }
 
-    // if args.contains(&"summary".to_owned()) {
-    //     send_summary(false).await;
-    // }
+    if args.contains(&"summary".to_owned()) {
+        summary_yesterday(false).await;
+    }
 
-    // if args.contains(&"summary_yesterday".to_owned()) {
-    //     send_summary(true).await;
-    // }
+    if args.contains(&"summary_yesterday".to_owned()) {
+        send_summary(true).await;
+    }
 }
