@@ -1,25 +1,24 @@
-use crate::domains::{
-    entities::contributed_repository::ContributedRepository, value_objects::date_time::DateTime,
+use crate::{
+    domains::{
+        entities::contributed_repository::ContributedRepository,
+        value_objects::{date_time::DateTime, message::Message},
+    },
+    utils::messaging::{
+        process_plural::process_plural, you_have_made_count_text::you_have_made_count_text,
+    },
 };
+use serde::Serialize;
+use serde_json::json;
 
-pub fn create_message_body(
+pub fn create_summary_message_body(
     todays_contributions: &[ContributedRepository],
     date: DateTime,
-) -> Value {
-    let repo_count: &u64 = &todays_contributions.len().try_into().unwrap_or_default();
+) -> Message {
+    let repo_count = todays_contributions.len() as u32;
 
-    let contributions_nodes = &todays_contributions
+    let commit_count = &todays_contributions
         .iter()
-        .map(|item| {
-            item.contributions.nodes.as_ref().unwrap()[0]
-                .as_ref()
-                .unwrap()
-        })
-        .collect::<Vec<&ContributionsNodes>>();
-
-    let commit_count = &contributions_nodes
-        .iter()
-        .map(|node| node.commit_count as u64)
+        .map(|node| node.commit_count)
         .sum();
 
     #[derive(Debug, Serialize)]
@@ -28,7 +27,7 @@ pub fn create_message_body(
         text: String,
     }
 
-    let commit_fields = &contributions_nodes
+    let commit_fields = &todays_contributions
         .iter()
         .flat_map(|node| {
             vec![
@@ -41,16 +40,16 @@ pub fn create_message_body(
                 },
                 Field {
                     r#type: "mrkdwn".to_owned(),
-                    text: process_plural(&(node.commit_count as u64), "commit", "commits"),
+                    text: process_plural(&node.commit_count, "commit", "commits"),
                 },
             ]
         })
         .collect::<Vec<Field>>();
 
-    let subheading = you_have_made_count_text(commit_count, repo_count);
-    let formatted_date = date.format("%B %e");
+    let subheading = you_have_made_count_text(commit_count, &repo_count);
+    let formatted_date = date.formatted();
 
-    json!({
+    let value = json!({
         "blocks": [
             {
                 "type": "header",
@@ -80,5 +79,7 @@ pub fn create_message_body(
             },
 
         ]
-    })
+    });
+
+    Message::new(value)
 }

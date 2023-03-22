@@ -27,22 +27,6 @@ fn get_date_time(is_yesterday: bool) -> chrono::DateTime<Local> {
     now
 }
 
-fn you_have_made_count_text(commit_count: &u64, repo_count: &u64) -> String {
-    let commit_plural_text = process_plural(commit_count, "commit", "commits");
-    let repo_plural_text = process_plural(repo_count, "repository", "repositories");
-    format!(
-        "You have made *{}* on *{}*",
-        commit_plural_text, repo_plural_text
-    )
-}
-
-fn process_plural(count: &u64, singular: &str, plural: &str) -> String {
-    match count {
-        1 => format!("{} {}", count, singular),
-        _ => format!("{} {}", count, plural),
-    }
-}
-
 fn create_message_body(
     todays_contributions: &[ContributionsByRepo],
     date: DateTime<Local>,

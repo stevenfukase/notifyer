@@ -1,5 +1,6 @@
 use crate::domains::{
-    entities::contributed_repository::ContributedRepository, value_objects::date_time::DateTime,
+    entities::contributed_repository::ContributedRepository,
+    enums::application_error::ApplicationError, value_objects::date_time::DateTime,
 };
 use async_trait::async_trait;
 #[cfg(test)]
@@ -11,5 +12,5 @@ pub trait GitRepositoryAbstract {
     async fn get_committed_repos(
         &self,
         date: DateTime,
-    ) -> Result<Vec<ContributedRepository>, Box<dyn std::error::Error>>;
+    ) -> Result<Vec<ContributedRepository>, ApplicationError>;
 }

@@ -12,4 +12,8 @@ impl DateTime {
         let mut now = Local::now() - Duration::days(1);
         Self(now)
     }
+
+    pub fn formatted(&self) -> String {
+        self.0.format("%B %e").to_string()
+    }
 }
