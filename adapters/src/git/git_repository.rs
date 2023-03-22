@@ -1,9 +1,4 @@
-pub mod schemas;
-pub(super) mod utils;
-use chrono::{DateTime, Local};
-use graphql_client::{QueryBody, Response};
-use reqwest::{header, Client};
-use schemas::single_day_committed_repo::{
+use super::schemas::single_day_committed_repo::{
     single_day_committed_repo::{
         ResponseData as CommittedRepoResponse,
         SingleDayCommittedRepoUserContributionsCollectionCommitContributionsByRepository as ContributionsVecByRepo,
@@ -11,12 +6,15 @@ use schemas::single_day_committed_repo::{
     },
     SingleDayCommittedRepo,
 };
-use schemas::single_day_contributions::{
+use super::schemas::single_day_contributions::{
     single_day_contributions::{
         ResponseData as CommitCountResponse, Variables as CommitCountVariables,
     },
     SingleDayContributions,
 };
+use chrono::{DateTime, Local};
+use graphql_client::{QueryBody, Response};
+use reqwest::{header, Client};
 use serde::Serialize;
 use std::iter;
 
