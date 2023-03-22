@@ -1,4 +1,8 @@
-use crate::git::git_repository::GitRepository;
+use crate::{
+    controllers::{notify::notify, summary::summary, summary_yesterday::summary_yesterday},
+    git::git_repository::GitRepository,
+    messaging::messaging_service::MessagingService,
+};
 
 use super::app_state::AppState;
 use std::env;
@@ -10,13 +14,13 @@ pub async fn run(
     slack_bot_user_oauth_token: &str,
 ) {
     let git_repository = GitRepository {};
+    let messaging_service = MessagingService::new(slack_channel_id, slack_bot_user_oauth_token);
 
     let app_state = AppState::new(
         git_username,
         git_access_token,
-        slack_channel_id,
-        slack_bot_user_oauth_token,
         git_repository,
+        messaging_service,
     );
 
     let args = env::args().collect::<Vec<String>>();

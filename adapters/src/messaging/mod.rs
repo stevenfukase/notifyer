@@ -1,1 +1,1 @@
-pub mod messaging_repository;
+pub mod messaging_service;

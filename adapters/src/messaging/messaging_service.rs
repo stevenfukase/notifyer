@@ -1,33 +1,33 @@
-use application::{
-    domains::value_objects::date_time::DateTime,
-    repositories::messaging_repository_abstract::MessagingRepositoryAbstract,
-};
-use async_trait::async_trait;
 use serde_json::{json, Value};
 use std::{thread, time};
 const SLACK_SEND_MESSAGE_ENDPOINT: &str = "https://slack.com/api/chat.postMessage";
 
 #[non_exhaustive]
-pub struct MessagingRepository {
+pub struct MessagingService {
     pub slack_channel_id: String,
+    pub slack_bot_user_oauth_token: String,
 }
 
+impl MessagingService {
+    pub fn new(slack_channel_id: &str, slack_bot_user_oauth_token: &str) -> Self {
+        Self {
+            slack_channel_id: slack_channel_id.to_string(),
+            slack_bot_user_oauth_token: slack_bot_user_oauth_token.to_string(),
+        }
+    }
 
-
-#[async_trait(?Send)]
-impl MessagingRepositoryAbstract for MessagingRepository {
-    async fn send(&self, blocks: Value, date_time: DateTime) {
+    pub async fn send(&self, blocks: Value) {
         let delay = time::Duration::from_secs(3);
 
         let perform_request = || async {
             let request_body = json!({
-                "channel": env!("SLACK_CHANNEL_ID"),
+                "channel": self.slack_channel_id,
                 "blocks": blocks["blocks"],
             });
 
             reqwest::Client::new()
                 .post(SLACK_SEND_MESSAGE_ENDPOINT)
-                .bearer_auth(env!("SLACK_BOT_USER_OAUTH_TOKEN"))
+                .bearer_auth(&*self.slack_bot_user_oauth_token)
                 .json(&request_body)
                 .send()
                 .await

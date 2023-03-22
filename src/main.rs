@@ -1,4 +1,4 @@
-use infrastructure::notifyer;
+use adapters::infrastructure::notifyer;
 
 #[tokio::main]
 async fn main() {
