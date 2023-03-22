@@ -1,8 +1,0 @@
-[package]
-name = "infrastructure"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-adapters = { path = "../adapters" }
-log = "0.4.0"
