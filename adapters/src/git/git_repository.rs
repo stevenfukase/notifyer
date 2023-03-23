@@ -87,7 +87,7 @@ impl GitRepositoryAbstract for GitRepository {
 
     async fn get_commit_count(&self, date: &DateTime) -> Result<u32, ApplicationError> {
         let variables = CommitCountVariables {
-            login: GIT_USERNAME.to_string(),
+            login: self.git_username.to_string(),
             date: date.to_utc_date(),
         };
 
