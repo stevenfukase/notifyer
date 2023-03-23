@@ -9,20 +9,23 @@ use crate::{
 use async_trait::async_trait;
 
 #[non_exhaustive]
-pub struct NotifySummaryUsecase<'a> {
+pub struct NotifyYesterdaySummaryUsecase<'a> {
     pub git_repository: &'a dyn GitRepositoryAbstract,
 }
 
-impl<'a> NotifySummaryUsecase<'a> {
+impl<'a> NotifyYesterdaySummaryUsecase<'a> {
     pub fn new(git_repository: &'a dyn GitRepositoryAbstract) -> Self {
         Self { git_repository }
     }
 }
 
 #[async_trait(?Send)]
-impl<'a> AbstractUsecase<Vec<ContributedRepository>> for NotifySummaryUsecase<'a> {
-    async fn execute(&self) -> Result<Vec<ContributedRepository>, ApplicationError> {
+impl<'a> AbstractUsecase<(DateTime, Vec<ContributedRepository>)>
+    for NotifyYesterdaySummaryUsecase<'a>
+{
+    async fn execute(&self) -> Result<(DateTime, Vec<ContributedRepository>), ApplicationError> {
         let yesterday = DateTime::yesterday();
-        self.git_repository.get_committed_repos(&yesterday).await
+        let contributed_repositories = self.git_repository.get_committed_repos(&yesterday).await?;
+        Ok((yesterday, contributed_repositories))
     }
 }

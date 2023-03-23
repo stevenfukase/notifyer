@@ -16,7 +16,7 @@ impl DateTime {
         self.0.format("%B %e").to_string()
     }
 
-    pub fn to_date_as_utc(&self) -> String {
+    pub fn to_utc_date(&self) -> String {
         self.0.format("%Y-%m-%dT00:00:00.000+00:00").to_string()
     }
 }

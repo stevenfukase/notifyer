@@ -1,3 +1,7 @@
+use application::domains::{
+    enums::application_error::ApplicationError,
+    value_objects::message::{self, Message},
+};
 use serde_json::{json, Value};
 use std::{thread, time};
 const SLACK_SEND_MESSAGE_ENDPOINT: &str = "https://slack.com/api/chat.postMessage";
@@ -16,13 +20,13 @@ impl MessagingService {
         }
     }
 
-    pub async fn send(&self, blocks: Value) {
+    pub async fn send(&self, message: Message) -> Result<(), ApplicationError> {
         let delay = time::Duration::from_secs(3);
 
         let perform_request = || async {
             let request_body = json!({
                 "channel": self.slack_channel_id,
-                "blocks": blocks["blocks"],
+                "blocks": message.inner()["blocks"],
             });
 
             reqwest::Client::new()
@@ -42,5 +46,7 @@ impl MessagingService {
             log::error!("Failed to send Slack. Retrying");
             thread::sleep(delay);
         }
+
+        Ok(())
     }
 }

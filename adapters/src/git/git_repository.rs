@@ -18,13 +18,10 @@ use application::{
     repositories::git_repository_abstract::GitRepositoryAbstract,
 };
 use async_trait::async_trait;
-use chrono::Local;
 use graphql_client::{GraphQLQuery, QueryBody, Response};
 use reqwest::{header, Client};
 use serde::Serialize;
 use std::iter;
-
-use crate::git::utils::format_date::format_date;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
 const GIT_USERNAME: &str = env!("GIT_USERNAME");
