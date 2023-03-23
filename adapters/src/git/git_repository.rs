@@ -24,7 +24,6 @@ use serde::Serialize;
 use std::iter;
 
 const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
-const GIT_USERNAME: &str = env!("GIT_USERNAME");
 
 async fn send_github_request<T: Serialize>(
     request_body: &QueryBody<T>,
@@ -52,7 +51,10 @@ async fn send_github_request<T: Serialize>(
     Ok(response)
 }
 
-pub struct GitRepository {}
+pub struct GitRepository {
+    pub git_username: String,
+    pub git_access_token: String,
+}
 
 #[async_trait(?Send)]
 impl GitRepositoryAbstract for GitRepository {
@@ -61,15 +63,16 @@ impl GitRepositoryAbstract for GitRepository {
         date: &DateTime,
     ) -> Result<Vec<ContributedRepository>, ApplicationError> {
         let variables = CommittedRepoVariables {
-            login: GIT_USERNAME.to_string(),
-            date: format_date(&date),
+            login: self.git_username.to_string(),
+            date: date.to_utc_date(),
         };
         let request_body = SingleDayCommittedRepo::build_query(variables);
         let parsed_response = send_github_request(&request_body)
             .await
             .unwrap()
             .json::<Response<CommittedRepoResponse>>()
-            .await?;
+            .await
+            .map_err(|_error| ApplicationError::JsonDeserializeError)?;
 
         let commit_contributions = parsed_response
             .data
@@ -85,7 +88,7 @@ impl GitRepositoryAbstract for GitRepository {
     async fn get_commit_count(&self, date: &DateTime) -> Result<u32, ApplicationError> {
         let variables = CommitCountVariables {
             login: GIT_USERNAME.to_string(),
-            date: format_date(&date),
+            date: date.to_utc_date(),
         };
 
         let request_body = SingleDayContributions::build_query(variables);
@@ -94,14 +97,16 @@ impl GitRepositoryAbstract for GitRepository {
             .await
             .unwrap()
             .json::<Response<CommitCountResponse>>()
-            .await?;
+            .await
+            .map_err(|_error| ApplicationError::JsonDeserializeError)?;
 
         // TODO: Error handling
         let contributions_data = parsed_response.data.unwrap();
         let user_contributions = contributions_data.user.unwrap().contributions_collection;
         let contributions_count = user_contributions.contribution_calendar.weeks[0]
             .contribution_days[0]
-            .contribution_count;
+            .contribution_count as u32;
+
         Ok(contributions_count)
     }
 }

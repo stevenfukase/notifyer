@@ -13,15 +13,19 @@ pub async fn run(
     slack_channel_id: &str,
     slack_bot_user_oauth_token: &str,
 ) {
-    let git_repository = GitRepository {};
-    let messaging_service = MessagingService::new(slack_channel_id, slack_bot_user_oauth_token);
+    let git_repository = GitRepository {
+        git_username: git_username.to_string(),
+        git_access_token: git_access_token.to_string(),
+    };
+    let messaging_service = MessagingService {
+        slack_channel_id: slack_channel_id.to_string(),
+        slack_bot_user_oauth_token: slack_bot_user_oauth_token.to_string(),
+    };
 
-    let app_state = AppState::new(
-        git_username,
-        git_access_token,
+    let app_state = AppState {
         git_repository,
         messaging_service,
-    );
+    };
 
     let args = env::args().collect::<Vec<String>>();
 

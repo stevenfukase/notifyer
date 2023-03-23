@@ -13,13 +13,6 @@ pub struct MessagingService {
 }
 
 impl MessagingService {
-    pub fn new(slack_channel_id: &str, slack_bot_user_oauth_token: &str) -> Self {
-        Self {
-            slack_channel_id: slack_channel_id.to_string(),
-            slack_bot_user_oauth_token: slack_bot_user_oauth_token.to_string(),
-        }
-    }
-
     pub async fn send(&self, message: Message) -> Result<(), ApplicationError> {
         let delay = time::Duration::from_secs(3);
 
