@@ -9,5 +9,7 @@ pub async fn summary(app_state: &AppState) -> Result<(), ApplicationError> {
     let (date_time, contributed_repositories) = notify_summary_usecase.execute().await?;
     let summary_presenter = presenters::summary::summary(&contributed_repositories, &date_time);
 
-    app_state.messaging_service.send(summary_presenter).await
+    app_state.messaging_service.send(summary_presenter).await;
+    
+    Ok(())
 }
