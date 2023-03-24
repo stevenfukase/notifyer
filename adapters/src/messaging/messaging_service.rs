@@ -31,6 +31,9 @@ impl MessagingService {
 
         loop {
             let result = perform_request().await;
+
+            log::debug!("{:?}", result);
+
             if result.is_ok() {
                 log::info!("Executed");
                 break;
