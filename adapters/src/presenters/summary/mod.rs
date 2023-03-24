@@ -1,5 +1,5 @@
 use application::domains::{
-    entities::contributed_repository::ContributedRepository,
+    entities::{contributed_repository::ContributedRepository, summary_entity::Summary},
     value_objects::{date_time::DateTime, message::Message},
 };
 use serde::Serialize;
@@ -9,10 +9,11 @@ mod you_have_made_count_text;
 use process_plural::process_plural;
 use you_have_made_count_text::you_have_made_count_text;
 
-pub fn summary(todays_contributions: &[ContributedRepository], date: &DateTime) -> Message {
-    let repo_count = todays_contributions.len() as u32;
+pub fn summary(summary_entity: &Summary) -> Message {
+    let repo_count = summary_entity.contributions.len() as u32;
 
-    let commit_count = &todays_contributions
+    let commit_count = &summary_entity
+        .contributions
         .iter()
         .map(|node| node.commit_count)
         .sum();
@@ -23,7 +24,8 @@ pub fn summary(todays_contributions: &[ContributedRepository], date: &DateTime) 
         text: String,
     }
 
-    let commit_fields = &todays_contributions
+    let commit_fields = &summary_entity
+        .contributions
         .iter()
         .flat_map(|node| {
             vec![
@@ -43,7 +45,7 @@ pub fn summary(todays_contributions: &[ContributedRepository], date: &DateTime) 
         .collect::<Vec<Field>>();
 
     let subheading = you_have_made_count_text(commit_count, &repo_count);
-    let formatted_date = date.to_utc_date();
+    let formatted_date = summary.date_time.to_utc_date();
 
     let value = json!({
         "blocks": [

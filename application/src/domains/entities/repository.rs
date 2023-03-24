@@ -1,4 +1,5 @@
 #[non_exhaustive]
+#[derive(Debug, Clone)]
 pub struct Repository {
     pub name_with_owner: String,
     pub url: String,

@@ -1,8 +1,8 @@
 use super::abstract_usecase::AbstractUsecase;
 use crate::{
     domains::{
-        entities::contributed_repository::ContributedRepository,
-        enums::application_error::ApplicationError, value_objects::date_time::DateTime,
+        entities::summary_entity::Summary, enums::application_error::ApplicationError,
+        value_objects::date_time::DateTime,
     },
     repositories::git_repository_abstract::GitRepositoryAbstract,
 };
@@ -20,10 +20,11 @@ impl<'a> NotifySummaryUsecase<'a> {
 }
 
 #[async_trait(?Send)]
-impl<'a> AbstractUsecase<(DateTime, Vec<ContributedRepository>)> for NotifySummaryUsecase<'a> {
-    async fn execute(&self) -> Result<(DateTime, Vec<ContributedRepository>), ApplicationError> {
+impl<'a> AbstractUsecase<Summary> for NotifySummaryUsecase<'a> {
+    async fn execute(&self) -> Result<Summary, ApplicationError> {
         let now = DateTime::now();
-        let contributed_repositories = self.git_repository.get_committed_repos(&now).await?;
-        Ok((now, contributed_repositories))
+        let contributions = self.git_repository.get_committed_repos(&now).await?;
+        let summary = Summary::new(&now, &contributions);
+        Ok(summary)
     }
 }
