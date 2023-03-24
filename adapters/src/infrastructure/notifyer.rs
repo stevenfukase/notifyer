@@ -1,10 +1,11 @@
+#![allow(unused_must_use)]
+
+use super::app_state::AppState;
 use crate::{
     controllers::{notify::notify, summary::summary, summary_yesterday::summary_yesterday},
     git::git_repository::GitRepository,
     messaging::messaging_service::MessagingService,
 };
-
-use super::app_state::AppState;
 use std::env;
 
 pub async fn run(
