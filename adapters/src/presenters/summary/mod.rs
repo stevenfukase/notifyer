@@ -1,7 +1,4 @@
-use application::domains::{
-    entities::{contributed_repository::ContributedRepository, summary_entity::Summary},
-    value_objects::{date_time::DateTime, message::Message},
-};
+use application::domains::{entities::summary_entity::Summary, value_objects::message::Message};
 use serde::Serialize;
 use serde_json::json;
 mod process_plural;
@@ -45,7 +42,7 @@ pub fn summary(summary_entity: &Summary) -> Message {
         .collect::<Vec<Field>>();
 
     let subheading = you_have_made_count_text(commit_count, &repo_count);
-    let formatted_date = summary.date_time.to_utc_date();
+    let formatted_date = summary_entity.date_time.to_utc_date();
 
     let value = json!({
         "blocks": [
