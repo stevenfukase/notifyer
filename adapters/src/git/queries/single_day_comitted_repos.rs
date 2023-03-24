@@ -1,4 +1,4 @@
-use crate::git::schemas::single_day_comitted_repos::queries::{
+use super::schemas::single_day_comitted_repos::queries::{
     DateTime, SingleDayCommittedRepos, SingleDayCommittedReposVariables,
 };
 use cynic::{Operation, QueryBuilder};

@@ -1,4 +1,4 @@
-use crate::git::schemas::single_day_contributions::queries::{
+use super::schemas::single_day_contributions::queries::{
     DateTime, SingleDayContributions, SingleDayContributionsVariables,
 };
 use cynic::{Operation, QueryBuilder};

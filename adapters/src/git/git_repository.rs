@@ -11,7 +11,10 @@ use reqwest::{header, Client};
 use serde::Serialize;
 use std::iter;
 
-use super::queries::single_day_comitted_repos;
+use super::{
+    constants::endpoint::GITHUB_ENDPOINT, queries::single_day_comitted_repos,
+    request_utils::run_graphql_query::run_graphql_query,
+};
 
 pub struct GitRepository {
     pub git_username: String,
@@ -26,12 +29,9 @@ impl GitRepositoryAbstract for GitRepository {
     ) -> Result<Vec<ContributedRepository>, ApplicationError> {
         let request_body =
             single_day_comitted_repos::build_query(&self.git_username, &date.to_utc_date());
-        let parsed_response = send_github_request(&request_body)
-            .await
-            .unwrap()
-            .json::<Response<CommittedRepoResponse>>()
-            .await
-            .map_err(|_error| ApplicationError::JsonDeserializeError)?;
+        let parsed_response =
+            run_graphql_query(&self.git_access_token, GITHUB_ENDPOINT, &request_body)
+   
 
         let commit_contributions = parsed_response
             .data
