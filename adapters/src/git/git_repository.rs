@@ -1,15 +1,3 @@
-use super::schemas::single_day_committed_repo::{
-    single_day_committed_repo::{
-        ResponseData as CommittedRepoResponse, Variables as CommittedRepoVariables,
-    },
-    SingleDayCommittedRepo,
-};
-use super::schemas::single_day_contributions::{
-    single_day_contributions::{
-        ResponseData as CommitCountResponse, Variables as CommitCountVariables,
-    },
-    SingleDayContributions,
-};
 use application::{
     domains::{
         entities::contributed_repository::ContributedRepository,
@@ -18,7 +6,7 @@ use application::{
     repositories::git_repository_abstract::GitRepositoryAbstract,
 };
 use async_trait::async_trait;
-use graphql_client::{GraphQLQuery, QueryBody, Response};
+
 use reqwest::{header, Client};
 use serde::Serialize;
 use std::iter;
@@ -110,3 +98,4 @@ impl GitRepositoryAbstract for GitRepository {
         Ok(contributions_count)
     }
 }
+

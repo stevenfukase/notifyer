@@ -5,9 +5,10 @@ edition = "2021"
 
 [dependencies]
 application = { path = "../application" }
+schemas = { path = "../schemas" }
 async-trait = "0.1"
 chrono = "0.4"
-cynic = { version = "2", features = ["http-surf"] }
+cynic = "2"
 log = "0.4"
 reqwest = { version = "0.11", default-features = false, features = [
     "blocking",
@@ -16,7 +17,6 @@ reqwest = { version = "0.11", default-features = false, features = [
 ] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-surf = "2"
 
 [dev-dependencies]
 insta = "1"
