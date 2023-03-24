@@ -1,11 +1,11 @@
-#[cynic::schema_for_derives(file = r#"../graphql/github.graphql"#, module = "schema")]
+#[cynic::schema_for_derives(file = r#"../graphql/github.graphql"#, module = "schemas")]
 mod queries {
-    use super::schema;
+    use schemas;
 
     #[derive(cynic::QueryVariables, Debug)]
     pub struct SingleDayContributionsVariables {
         pub date: DateTime,
-        pub login: Option<String>,
+        pub login: String,
     }
 
     #[derive(cynic::QueryFragment, Debug)]

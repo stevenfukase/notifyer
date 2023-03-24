@@ -1,25 +1,24 @@
-#[cynic::schema_for_derives(file = r#"../graphql/github.graphql"#, module = "schema")]
+#[cynic::schema_for_derives(file = r#"../graphql/github.graphql"#, module = "schemas")]
 mod queries {
-    use schemas as schema;
+    use schemas;
 
     #[derive(cynic::QueryVariables, Debug)]
-    pub struct SingleDayComittedReposVariables {
-        pub from: Option<DateTime>,
-        pub login: Option<String>,
-        pub to: Option<DateTime>,
+    pub struct SingleDayCommittedRepoVariables {
+        pub date: DateTime,
+        pub login: String,
     }
 
     #[derive(cynic::QueryFragment, Debug)]
-    #[cynic(graphql_type = "Query", variables = "SingleDayComittedReposVariables")]
-    pub struct SingleDayComittedRepos {
+    #[cynic(graphql_type = "Query", variables = "SingleDayCommittedRepoVariables")]
+    pub struct SingleDayCommittedRepo {
         #[arguments(login: $login)]
         pub user: Option<User>,
     }
 
     #[derive(cynic::QueryFragment, Debug)]
-    #[cynic(variables = "SingleDayComittedReposVariables")]
+    #[cynic(variables = "SingleDayCommittedRepoVariables")]
     pub struct User {
-        #[arguments(from: $from, to: $to)]
+        #[arguments(from: $date, to: $date)]
         pub contributions_collection: ContributionsCollection,
     }
 

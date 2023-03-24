@@ -1,1 +1,1 @@
-pub mod run_query;
+pub mod run_graphql_query;
