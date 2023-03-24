@@ -11,33 +11,7 @@ use reqwest::{header, Client};
 use serde::Serialize;
 use std::iter;
 
-const GITHUB_ENDPOINT: &str = "https://api.github.com/graphql";
-
-async fn send_github_request<T: Serialize>(
-    request_body: &QueryBody<T>,
-) -> Result<reqwest::Response, reqwest::Error> {
-    let github_token = env!("GIT_ACCESS_TOKEN");
-    let headers = iter::once((
-        header::AUTHORIZATION,
-        header::HeaderValue::from_str(&format!("Bearer {}", github_token)).unwrap(),
-    ))
-    .collect();
-
-    let client = Client::builder()
-        .user_agent("graphql-rust/0.10.0")
-        .default_headers(headers)
-        .build()?;
-
-    // graphql_client::reqwest::post_graphql will cause error
-    // when compiling for armv7-unknown-linux-gnueabihf
-    let response = client
-        .post(GITHUB_ENDPOINT)
-        .json(&request_body)
-        .send()
-        .await?;
-
-    Ok(response)
-}
+use super::queries::single_day_comitted_repos;
 
 pub struct GitRepository {
     pub git_username: String,
@@ -50,11 +24,8 @@ impl GitRepositoryAbstract for GitRepository {
         &self,
         date: &DateTime,
     ) -> Result<Vec<ContributedRepository>, ApplicationError> {
-        let variables = CommittedRepoVariables {
-            login: self.git_username.to_string(),
-            date: date.to_utc_date(),
-        };
-        let request_body = SingleDayCommittedRepo::build_query(variables);
+        let request_body =
+            single_day_comitted_repos::build_query(&self.git_username, &date.to_utc_date());
         let parsed_response = send_github_request(&request_body)
             .await
             .unwrap()
@@ -98,4 +69,3 @@ impl GitRepositoryAbstract for GitRepository {
         Ok(contributions_count)
     }
 }
-
