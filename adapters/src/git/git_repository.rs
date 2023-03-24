@@ -29,19 +29,34 @@ impl GitRepositoryAbstract for GitRepository {
     ) -> Result<Vec<ContributedRepository>, ApplicationError> {
         let request_body =
             single_day_comitted_repos::build_query(&self.git_username, &date.to_utc_date());
-        let parsed_response =
-            run_graphql_query(&self.git_access_token, GITHUB_ENDPOINT, &request_body)
-   
 
-        let commit_contributions = parsed_response
+        let single_day_comitted_repos =
+            run_graphql_query(&self.git_access_token, GITHUB_ENDPOINT, request_body)
+                .await
+                .map_err(|_error| ApplicationError::RequestError)?;
+
+        let contributed_repositories = single_day_comitted_repos
             .data
-            .unwrap()
+            .ok_or(ApplicationError::RequestError)?
             .user
-            .unwrap()
+            .ok_or(ApplicationError::RequestError)?
             .contributions_collection
-            .commit_contributions_by_repository;
+            .commit_contributions_by_repository
+            .iter()
+            .filter_map(|contribution| {
+                contribution.contributions.nodes.iter().filter_map(
+                    |created_commit_contributions| {
+                        created_commit_contributions_option
+                            .iter()
+                            .filter_map(|a| {
+                                
+                            })
+                    },
+                );
+            })
+            .collect::<Vec<ContributedRepository>>();
 
-        Ok(commit_contributions)
+        Ok(contributed_repositories)
     }
 
     async fn get_commit_count(&self, date: &DateTime) -> Result<u32, ApplicationError> {
