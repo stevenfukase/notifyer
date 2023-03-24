@@ -40,15 +40,16 @@ impl GitRepositoryAbstract for GitRepository {
             .ok_or(ApplicationError::DeserializeError)?
             .contributions_collection
             .commit_contributions_by_repository
-            .iter()
+            .into_iter()
             .filter_map(|contribution| {
-                let nodes_option = contribution.contributions.nodes;
+                let nodes_option = &contribution.contributions.nodes;
 
                 if nodes_option.is_none() {
                     return None;
                 }
 
                 let contributed_repositories = nodes_option
+                    .as_ref()
                     .unwrap()
                     .iter()
                     .filter_map(|created_commit_contribution_option| {
@@ -56,7 +57,7 @@ impl GitRepositoryAbstract for GitRepository {
                             return None;
                         }
 
-                        let contribution = created_commit_contribution_option.unwrap();
+                        let contribution = created_commit_contribution_option.as_ref().unwrap();
                         let repository = &contribution.repository;
                         let date_time =
                             date_time::DateTime::from_str(&*contribution.occurred_at.0).ok()?;
