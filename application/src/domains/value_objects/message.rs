@@ -1,6 +1,7 @@
 use serde_json::Value;
 
 #[non_exhaustive]
+#[derive(Debug)]
 pub struct Message(Value);
 
 impl Message {
