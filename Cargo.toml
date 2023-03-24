@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/stevenfukase/notifyer"
 
 [workspace]
-members = ["adapters", "application"]
+members = ["adapters", "application", "schemas"]
 
 [dependencies]
 adapters = { path = "./adapters" }
