@@ -1,5 +1,3 @@
-#![allow(unused_must_use)]
-
 use super::app_state::AppState;
 use crate::{
     controllers::{notify::notify, summary::summary, summary_yesterday::summary_yesterday},
@@ -36,14 +34,17 @@ pub async fn run(
     }
 
     if args.contains(&"notify".to_owned()) {
-        notify(&app_state).await;
+        let result = notify(&app_state).await;
+        log::debug!("{:?}", result);
     }
 
     if args.contains(&"summary".to_owned()) {
-        summary_yesterday(&app_state).await;
+        let result = summary_yesterday(&app_state).await;
+        log::debug!("{:?}", result);
     }
 
     if args.contains(&"summary_yesterday".to_owned()) {
-        summary(&app_state).await;
+        let result = summary(&app_state).await;
+        log::debug!("{:?}", result);
     }
 }
