@@ -6,6 +6,13 @@ on:
   schedule:
     - cron: "0 1-23 * * *"
 
+env:
+  CARGO_TERM_COLOR: always
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+  SLACK_BOT_USER_OAUTH_TOKEN: ${{ secrets.SLACK_BOT_USER_OAUTH_TOKEN }}
+  GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+  GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
+
 jobs:
   cron:
     runs-on: ubuntu-latest

@@ -15,6 +15,13 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  CARGO_TERM_COLOR: always
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+  SLACK_BOT_USER_OAUTH_TOKEN: ${{ secrets.SLACK_BOT_USER_OAUTH_TOKEN }}
+  GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+  GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
+
 jobs:
   deploy:
     environment:
@@ -24,30 +31,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Put dummy env vars
-        run: |
-          cd ./.cargo
-          cat <<EOF > config.toml
-          [env]
-          SLACK_CHANNEL_ID = "channelid"
-          SLACK_BOT_USER_OAUTH_TOKEN = "slacktoken"
-          GIT_USERNAME = "ghusername"
-          GIT_ACCESS_TOKEN = "ghtoken"
-          EOF
-          echo "cat config.toml"
-          cat config.toml
 
       - name: Build Docs
         run: |
           cargo doc --no-deps
           echo "<meta http-equiv=\"refresh\" content=\"0; url=notifyer\">" > target/doc/index.html
           cp -r target/doc ./docs
+
       - name: Setup Pages
         uses: actions/configure-pages@v2
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: "./target/doc"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
