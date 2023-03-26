@@ -5,5 +5,5 @@ pub enum ApplicationError {
     #[error("Failed to deserialize")]
     DeserializeError,
     #[error("Request failed")]
-    RequestError
+    RequestError,
 }
