@@ -6,6 +6,7 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 
 - 購入したRaspberry Pi Zero 2 Wの有効活用
 - Linux、Rustの学習
+- Clean architecture、GitHub Actionsを用いたテンプレートプロジェクト
 
 ## 機能
 
@@ -70,3 +71,8 @@ Linkerをインストールし、rustupにtoolchainを追加する
     ```
 
 Cross compileせずGitHub ActionsのSecretsに環境変数を追加することによってGitHub Actionsでも実行できます。
+
+## Roadmap
+
+- Continuous Deployment
+- Semantic Release
