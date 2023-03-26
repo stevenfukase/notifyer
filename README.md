@@ -72,7 +72,6 @@ Linkerをインストールし、rustupにtoolchainを追加する
 
 Cross compileせずGitHub ActionsのSecretsに環境変数を追加することによってGitHub Actionsでも実行できます。
 
-## Roadmap
+## Todos
 
-- Continuous Deployment
 - Semantic Release
