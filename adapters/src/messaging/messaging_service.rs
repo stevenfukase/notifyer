@@ -17,11 +17,6 @@ impl MessagingService {
             "blocks": message.inner()["blocks"],
         });
 
-        println!(
-            "####### request_body #######\n{:?}\n####### request_body #######",
-            request_body
-        );
-
         let result = reqwest::Client::new()
             .post(SLACK_SEND_MESSAGE_ENDPOINT)
             .bearer_auth(&*self.slack_bot_user_oauth_token)
