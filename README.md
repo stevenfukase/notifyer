@@ -75,3 +75,4 @@ Cross compileせずGitHub ActionsのSecretsに環境変数を追加すること�
 ## Todos
 
 - Semantic Release
+- Impl tests
