@@ -69,4 +69,4 @@ Linkerをインストールし、rustupにtoolchainを追加する
     0 1-23 * * * cd Projects && ./notifyer notify
     ```
 
-Cross compileせずGitHub Actionsでも実行できます。
+Cross compileせずGitHub ActionsのSecretsに環境変数を追加することによってGitHub Actionsでも実行できます。
