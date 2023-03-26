@@ -39,12 +39,12 @@ pub async fn run(
     }
 
     if args.contains(&"summary".to_owned()) {
-        let result = summary_yesterday(&app_state).await;
+        let result = summary(&app_state).await;
         log::debug!("{:?}", result);
     }
 
     if args.contains(&"summary_yesterday".to_owned()) {
-        let result = summary(&app_state).await;
+        let result = summary_yesterday(&app_state).await;
         log::debug!("{:?}", result);
     }
 }

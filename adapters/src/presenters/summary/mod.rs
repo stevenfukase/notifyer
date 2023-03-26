@@ -42,7 +42,7 @@ pub fn summary(summary_entity: &Summary) -> Message {
         .collect::<Vec<Field>>();
 
     let subheading = you_have_made_count_text(commit_count, &repo_count);
-    let formatted_date = summary_entity.date_time.to_utc_date();
+    let formatted_date = summary_entity.date_time.to_month_day();
 
     let value = json!({
         "blocks": [
