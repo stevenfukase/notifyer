@@ -2,7 +2,6 @@ use application::domains::{
     enums::application_error::ApplicationError, value_objects::message::Message,
 };
 use serde_json::json;
-
 const SLACK_SEND_MESSAGE_ENDPOINT: &str = "https://slack.com/api/chat.postMessage";
 
 #[non_exhaustive]
@@ -17,6 +16,11 @@ impl MessagingService {
             "channel": self.slack_channel_id,
             "blocks": message.inner()["blocks"],
         });
+
+        println!(
+            "####### request_body #######\n{:?}\n####### request_body #######",
+            request_body
+        );
 
         let result = reqwest::Client::new()
             .post(SLACK_SEND_MESSAGE_ENDPOINT)
