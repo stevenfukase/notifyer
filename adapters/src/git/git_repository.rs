@@ -60,7 +60,7 @@ impl GitRepositoryAbstract for GitRepository {
                         let contribution = created_commit_contribution_option.as_ref().unwrap();
                         let repository = &contribution.repository;
                         let date_time =
-                            date_time::DateTime::from_str(&*contribution.occurred_at.0).ok()?;
+                            date_time::DateTime::from_str(&contribution.occurred_at.0).ok()?;
 
                         Some(ContributedRepository::new(
                             &(contribution.commit_count as u32),
