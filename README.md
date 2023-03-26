@@ -68,3 +68,5 @@ Linkerをインストールし、rustupにtoolchainを追加する
     # 1時から23時まで1時間毎にGitHubを更新してなかったら通知する
     0 1-23 * * * cd Projects && ./notifyer notify
     ```
+
+Cross compile せず GitHub Actions でも実行できます。
