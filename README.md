@@ -1,4 +1,4 @@
-# Notifyer
+# Notifyer [![Tests](https://github.com/stevenfukase/notifyer/actions/workflows/tests.yml/badge.svg)](https://github.com/stevenfukase/notifyer/actions/workflows/tests.yml)
 
 Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定した時間にSlackで通知するミニCLIアプリ
 
