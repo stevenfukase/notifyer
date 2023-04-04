@@ -13,7 +13,7 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 ### GitHubを更新してないときに通知する
 
 ```shell
-./notifyer notify
+./notifyer --notify
 ```
 
 ![Notifyer](readme_images/notifyer.png)
@@ -22,13 +22,29 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 
 ```shell
 # 同日のコミット状況を通知する
-./notifyer summary
+./notifyer --summary
 
 # 前日の場合 (24時を回ったあとに通知するときに便利)
-./notifyer summary_yesterday
+./notifyer --summary_yesterday
 ```
 
 ![Summary](readme_images/summary.png)
+
+### Helpを表示
+
+```shell
+./notifyer --help
+```
+
+```
+Usage: notifyer [OPTIONS]
+
+Options:
+  -s, --summary
+  -y, --summary-yesterday
+  -n, --notify
+  -h, --help
+```
 
 ## 設定手順
 
@@ -64,10 +80,10 @@ Linkerをインストールし、rustupにtoolchainを追加する
 
     ```shell
     # 0時を回ったら1日のまとめを通知する
-    0 0 * * * cd Projects && ./notifyer summary_yesterday
+    0 0 * * * cd Projects && ./notifyer --summary_yesterday
 
     # 1時から23時まで1時間毎にGitHubを更新してなかったら通知する
-    0 1-23 * * * cd Projects && ./notifyer notify
+    0 1-23 * * * cd Projects && ./notifyer --notify
     ```
 
 Cross compileせずGitHub ActionsのSecretsに環境変数を追加することによってGitHub Actionsでも実行できます。

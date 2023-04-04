@@ -6,14 +6,13 @@ use crate::{
     git::git_repository::GitRepository,
     messaging::messaging_service::MessagingService,
 };
-use std::env;
 
 #[derive(Parser, Debug)]
 struct Args {
     #[arg(short, long, action)]
     summary: bool,
 
-    #[arg(short, long, action)]
+    #[arg(short = 'y', long, action)]
     summary_yesterday: bool,
 
     #[arg(short, long, action)]
@@ -40,24 +39,24 @@ pub async fn run(
         messaging_service,
     };
 
-    let args = env::args().collect::<Vec<String>>();
+    let args = Args::parse();
 
-    if args.len() == 1 {
+    if !args.notify && !args.summary && !args.summary_yesterday {
         log::info!("No args passed. Exiting.");
         return;
     }
 
-    if args.contains(&"notify".to_owned()) {
+    if args.notify {
         let result = notify(&app_state).await;
         log::debug!("{:?}", result);
     }
 
-    if args.contains(&"summary".to_owned()) {
+    if args.summary {
         let result = summary(&app_state).await;
         log::debug!("{:?}", result);
     }
 
-    if args.contains(&"summary_yesterday".to_owned()) {
+    if args.summary_yesterday {
         let result = summary_yesterday(&app_state).await;
         log::debug!("{:?}", result);
     }
