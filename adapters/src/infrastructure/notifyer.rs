@@ -1,3 +1,5 @@
+use clap::Parser;
+
 use super::app_state::AppState;
 use crate::{
     controllers::{notify::notify, summary::summary, summary_yesterday::summary_yesterday},
@@ -5,6 +7,18 @@ use crate::{
     messaging::messaging_service::MessagingService,
 };
 use std::env;
+
+#[derive(Parser, Debug)]
+struct Args {
+    #[arg(short, long, action)]
+    summary: bool,
+
+    #[arg(short, long, action)]
+    summary_yesterday: bool,
+
+    #[arg(short, long, action)]
+    notify: bool,
+}
 
 pub async fn run(
     git_username: &str,

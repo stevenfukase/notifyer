@@ -8,6 +8,7 @@ application = { path = "../application" }
 schemas = { path = "../schemas" }
 async-trait = "0.1"
 chrono = "0.4"
+clap = { version = "4", features = ["derive"] }
 cynic = { version = "2", features = ["http-reqwest"] }
 log = "0.4"
 reqwest = { version = "0.11", default-features = false, features = [
