@@ -41,4 +41,4 @@ jobs:
 
       - name: Run
         working-directory: ./target/release
-        run: ./notifyer notify
+        run: ./notifyer --notify
