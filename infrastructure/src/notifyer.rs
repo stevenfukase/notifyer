@@ -7,15 +7,10 @@ use adapters::{
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-struct Args {
-    #[arg(short, long, action)]
-    summary: bool,
-
-    #[arg(short = 'y', long, action)]
-    summary_yesterday: bool,
-
-    #[arg(short, long, action)]
-    notify: bool,
+enum Args {
+    Summary,
+    SummaryYesterday,
+    Notify,
 }
 
 pub async fn run(
@@ -40,23 +35,18 @@ pub async fn run(
 
     let args = Args::parse();
 
-    if !args.notify && !args.summary && !args.summary_yesterday {
-        log::info!("No args passed. Exiting.");
-        return;
-    }
-
-    if args.notify {
-        let result = notify(&app_state).await;
-        log::debug!("{:?}", result);
-    }
-
-    if args.summary {
-        let result = summary(&app_state).await;
-        log::debug!("{:?}", result);
-    }
-
-    if args.summary_yesterday {
-        let result = summary_yesterday(&app_state).await;
-        log::debug!("{:?}", result);
+    match args {
+        Args::Notify => {
+            let result = notify(&app_state).await;
+            log::debug!("{:?}", result);
+        }
+        Args::Summary => {
+            let result = summary(&app_state).await;
+            log::debug!("{:?}", result);
+        }
+        Args::SummaryYesterday => {
+            let result = summary_yesterday(&app_state).await;
+            log::debug!("{:?}", result);
+        }
     }
 }

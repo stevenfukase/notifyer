@@ -13,7 +13,7 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 ### GitHubを更新してないときに通知する
 
 ```shell
-./notifyer --notify
+./notifyer notify
 ```
 
 ![Notifyer](readme_images/notifyer.png)
@@ -22,10 +22,10 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 
 ```shell
 # 同日のコミット状況を通知する
-./notifyer --summary
+./notifyer summary
 
 # 前日の場合 (24時を回ったあとに通知するときに便利)
-./notifyer --summary_yesterday
+./notifyer summary-yesterday
 ```
 
 ![Summary](readme_images/summary.png)
@@ -33,17 +33,17 @@ Rustで作ったRaspberry Piでも動くGitHubの更新状況をCronで指定し
 ### Helpを表示
 
 ```shell
-./notifyer --help
+./notifyer help
 ```
 
 ```
-Usage: notifyer [OPTIONS]
+Usage: notifyer <COMMAND>
 
-Options:
-  -s, --summary
-  -y, --summary-yesterday
-  -n, --notify
-  -h, --help
+Commands:
+  summary
+  summary-yesterday
+  notify
+  help
 ```
 
 ## 設定手順
