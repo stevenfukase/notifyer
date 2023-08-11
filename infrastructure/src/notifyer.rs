@@ -1,11 +1,10 @@
-use clap::Parser;
-
-use super::app_state::AppState;
-use crate::{
+use adapters::{
     controllers::{notify::notify, summary::summary, summary_yesterday::summary_yesterday},
     git::git_repository::GitRepository,
     messaging::messaging_service::MessagingService,
+    shared::app_state::AppState,
 };
+use clap::Parser;
 
 #[derive(Parser, Debug)]
 struct Args {

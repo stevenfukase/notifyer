@@ -8,13 +8,15 @@ readme = "README.md"
 repository = "https://github.com/stevenfukase/notifyer"
 
 [workspace]
-members = ["adapters", "application", "schemas"]
+members = ["adapters", "application", "infrastructure", "schemas"]
 
 [dependencies]
-adapters = { path = "./adapters" }
+infrastructure = { path = "./infrastructure" }
 tokio = { version = "1", features = ["full"] }
-log = "0.4"
 env_logger = "0.10"
+
+[workspace.dependencies]
+log = "0.4"
 
 [profile.release]
 strip = true

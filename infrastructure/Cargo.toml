@@ -1,0 +1,9 @@
+[package]
+name = "infrastructure"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+adapters = { path = "../adapters" }
+clap = "4.3.21"
+log = { workspace = true }

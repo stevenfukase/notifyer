@@ -1,4 +1,4 @@
-use crate::{infrastructure::app_state::AppState, presenters};
+use crate::{presenters, shared::app_state::AppState};
 use application::{
     domains::enums::application_error::ApplicationError,
     usecases::{
